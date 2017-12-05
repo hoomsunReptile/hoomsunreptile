@@ -21,13 +21,13 @@ public class Function {
 	public static WebDriver getDriverInstance(String type){
 		WebDriver driver = null;
 		if(type.equals("ie")){
-			System.setProperty("webdriver.ie.driver", "/Users/hongzheng/Downloads/chromedriver");
+			System.setProperty(SystemConfig.getProperty("ieDriverKey"), SystemConfig.getProperty("ieDriverValue"));
 			DesiredCapabilities ieCapabilities = DesiredCapabilities.internetExplorer();
 			ieCapabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,true);
 			ieCapabilities.setCapability(InternetExplorerDriver.BROWSER_ATTACH_TIMEOUT,15000);
 			driver = new InternetExplorerDriver(ieCapabilities);
 		}else{
-			System.setProperty("webdriver.chrome.driver", "/Users/hongzheng/Downloads/chromedriver");
+			System.setProperty(SystemConfig.getProperty("chromeDriverKey"), SystemConfig.getProperty("chromeDriverValue"));
 			DesiredCapabilities ieCapabilities = DesiredCapabilities.internetExplorer();
 			ieCapabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,true);
 			ieCapabilities.setCapability(InternetExplorerDriver.BROWSER_ATTACH_TIMEOUT,15000);

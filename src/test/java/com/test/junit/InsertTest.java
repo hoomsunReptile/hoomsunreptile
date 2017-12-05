@@ -11,22 +11,24 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import javax.annotation.Resource;
 
 /**
- * 测试类
- *
+ *  测试类
  * @author hongzheng
+ *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = StartApp.class)
 @WebAppConfiguration
 public class InsertTest {
-    @Resource
-    private UserService userServices;
+@Resource
+    private  UserService userServices;
 
-    @Test
-    public void test() {
-        System.out.println("asdas");
-        userServices.insert("2132", 18);
-        System.out.println("成功");
-    }
+
+	@Test
+	public void test(){
+
+		System.out.println("asdas");
+		userServices.insert("2132",18);
+		System.out.println("成功");
+	}
 
 }
