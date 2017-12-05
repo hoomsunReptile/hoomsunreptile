@@ -1,0 +1,18 @@
+server:
+  port: 8082
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.2.151:3306/bigyoung?serverTimezone=UTC&useSSL=false
+    username: root
+    password: 123
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+          max-lifetime: 1765000
+          maximum-pool-size: 15
+
+
+
+    
+  
