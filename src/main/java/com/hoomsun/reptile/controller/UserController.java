@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +27,7 @@ public class UserController {
     @RequestMapping(value = "/")
     @ResponseBody
     public String hello() {
+        logger.warn("今天是"+new SimpleDateFormat("yyyy:MM:dd HH:mm:ss").format(new Date()));
         return "hello";
     }
 

@@ -33,7 +33,7 @@
     <root level="WARN">
         <appender-ref ref="FILE" />
     </root>
-    <root level="INFO">
+    <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>
