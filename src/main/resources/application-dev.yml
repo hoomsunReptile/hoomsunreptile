@@ -1,5 +1,9 @@
 server:
   port: 8082
+  tomcat:
+    accesslog:
+      enabled: true
+    basedir: target/tomcat
 
 spring:
   datasource:
@@ -11,6 +15,8 @@ spring:
     hikari:
           max-lifetime: 1765000
           maximum-pool-size: 15
+  thymeleaf:
+    cache: false
 
 
 
