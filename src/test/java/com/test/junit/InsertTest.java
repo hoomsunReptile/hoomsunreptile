@@ -27,7 +27,7 @@ public class InsertTest {
 	public void test(){
 
 		System.out.println("asdas");
-		userServices.insert("2132",18);
+		userServices.insert("张三",18);
 		System.out.println("成功");
 	}
 

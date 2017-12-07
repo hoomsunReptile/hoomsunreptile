@@ -9,15 +9,6 @@ public class ModelBean {
     private boolean keyBoard;               //模拟键盘输入
     private String processParameters;       //参数
     private String modelDescribe;           //描述
-    private  String testParameters;
-
-    public String getTestParameters() {
-        return testParameters;
-    }
-
-    public void setTestParameters(String testParameters) {
-        this.testParameters = testParameters;
-    }
 
     public int getCategoryId() {
         return categoryId;
@@ -94,7 +85,6 @@ public class ModelBean {
                 ", keyBoard=" + keyBoard +
                 ", processParameters='" + processParameters + '\'' +
                 ", modelDescribe='" + modelDescribe + '\'' +
-                ", testParameters='" + testParameters + '\'' +
                 '}';
     }
 }
