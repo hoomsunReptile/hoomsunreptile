@@ -115,47 +115,85 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
             <div class="row">
                 <div class="col-md-5">
-                    <h1 class="page-header">新增数据采集模块</h1>
+                    <h1 class="page-header">新增数据采集模块--方法编辑区</h1>
                     <form action="/AddMehtodController/putmenu" method="post" autocomplete="off">
+
                         <div class="form-group custom">
-                            <label for="category-nameCN">数据采集名称（CN）</label>
-                            <input type="text" id="category-nameCN" name="categoryNameCN" class="form-control"
-                                   placeholder="采集域中文名称" required="required" autocomplete="off"/>
+                            <label for="grab_domain_basic_id">抓取域基本信息</label>
+                            <input type="text" id="grab_domain_basic_id" name="grab_domain_basic_id" class="form-control"
+                                   placeholder="" required="required" autocomplete="off"  th:value="${editMenuById.grab_domain_cn_describe}"/>
                             <span class="prompt-text"></span></div>
                         <div class="form-group custom">
-                            <label for="category-nameEN">数据采集名称（EN）</label>
-                            <input type="text" id="category-nameEN" name="categoryNameEN" class="form-control"
-                                   placeholder="新增模块标识" required="required" autocomplete="off"/>
+                            <label for="grab_domain_procedure_id">抓取域步骤id</label>
+                            <input type="text" id="grab_domain_procedure_id" name="grab_domain_procedure_id" class="form-control"
+                                   placeholder="" required="required" autocomplete="off"/>
                             <span class="prompt-text"></span></div>
                         <div class="form-group custom">
-                            <label for="category-collectionUrl">数据采集访问域名</label>
-                            <input type="text" id="category-collectionUrl" name="categoryCollectionUrl"
+                            <label for="method_procedure_item">方法调用步骤</label>
+                            <input type="text" id="method_procedure_item" name="method_procedure_item"
+                                   class="form-control"
+                                   placeholder="" required="required" autocomplete="off"/>
+                            <span class="prompt-text"></span></div>
+                        <div class="form-group custom">
+                            <label for="method_procedure_item_describe">执行方法具体描述</label>
+                            <input type="text" id="method_procedure_item_describe" name="method_procedure_item_describe"
+                                   class="form-control"
+                                   placeholder="" required="required" autocomplete="off"/>
+                            <span class="prompt-text"></span></div>
+                        <div class="form-group custom">
+                            <label for="method_procedure_name">执行方法名称</label>
+                            <input type="text" id="method_procedure_name" name="method_procedure_name"
                                    class="form-control"
                                    placeholder="此处填写用户访问的域名地址" required="required" autocomplete="off"/>
                             <span class="prompt-text"></span></div>
+                        <div class="form-group custom">
+                            <label for="method_procedure_in_param">执行方法入参</label>
+                            <input type="text" id="method_procedure_in_param" name="method_procedure_in_param"
+                                   class="form-control"
+                                   placeholder="" required="required" autocomplete="off"/>
+                            <span class="prompt-text"></span></div>
+                        <div class="form-group custom">
+                            <label for="method_procedure_out_param_name">执行方法出参名</label>
+                            <input type="text" id="method_procedure_out_param_name" name="method_procedure_out_param_name"
+                                   class="form-control"
+                                   placeholder="" required="required" autocomplete="off"/>
+                            <span class="prompt-text"></span></div>
+                        <div class="form-group custom">
+                            <label for="method_procedure_out_param_type">执行方法出参类型</label>
+                            <input type="text" id="method_procedure_out_param_type" name="method_procedure_out_param_type"
+                                   class="form-control"
+                                   placeholder="" required="required" autocomplete="off"/>
+                            <span class="prompt-text"></span></div><div class="form-group custom">
+                        <label for="method_procedure_package">执行方法所在包名</label>
+                        <input type="text" id="method_procedure_package" name="method_procedure_package"
+                               class="form-control"
+                               placeholder="" required="required" autocomplete="off"/>
+                        <span class="prompt-text"></span></div>
+                        <div class="form-group custom">
+                            <label for="method_procedure_clazz">执行方法所在类名</label>
+                            <input type="text" id="method_procedure_clazz" name="method_procedure_clazz"
+                                   class="form-control"
+                                   placeholder="" required="required" autocomplete="off"/>
+                            <span class="prompt-text"></span></div>
                         <div class="form-group">
-                            <label>控件定位</label>
+                            <label>是否可调用已有的方法</label>
                             <br/>
-                            <input type="radio" id="Positioning-ControlsT" name="positioningControl"
+                            <input type="radio" id="method_exist_flagT" name="method_exist_flag"
                                    class="form-control" value="true" checked="checked"/>true
-                            <input type="radio" id="Positioning-ControlsF" name="positioningControl"
+                            <input type="radio" id="method_exist_flagF" name="method_exist_flag"
                                    class="form-control" value="false"/>false
                             <span class="prompt-text"></span></div>
                         <div class="form-group">
-                            <label>模拟键盘输入</label>
+                            <label>状态</label>
                             <br/>
-                            <input type="radio" id="KeyBoardT" name="keyBoard" class="form-control" checked="checked"
+                            <input type="radio" id="statusT" name="status" class="form-control" checked="checked"
                                    value="true"/>true
-                            <input type="radio" id="KeyBoardF" name="keyBoard" class="form-control" value="false"/>false
+                            <input type="radio" id="statusF" name="status" class="form-control" value="false"/>false
                             <span class="prompt-text"></span></div>
+
                         <div class="form-group">
-                            <label for="process-Parameters">参数</label>
-                            <input type="text" id="process-Parameters" name="processParameters" class="form-control"
-                                   placeholder="参数1、参数2***" autocomplete="off"/>
-                            <span class="prompt-text">文字叙述过程中所需要的参数</span></div>
-                        <div class="form-group">
-                            <label for="model-describe">概括</label>
-                            <textarea class="form-control" id="model-describe" name="modelDescribe" rows="4"
+                            <label for="method_procedure_body">执行方法体</label>
+                            <textarea class="form-control" id="method_procedure_body" name="method_procedure_body" rows="4"
                                       autocomplete="off"></textarea>
                             <span class="prompt-text">新增模块功能概述</span></div>
                         <button class="btn btn-primary" type="submit" name="submit">添加新模块</button>
