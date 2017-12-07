@@ -24,6 +24,10 @@ public class GrabDomainMethodInfo {
 	private String methodExistFlag;//是否可调用已有的方法
 	private String status;//状态
 	private String remark;//备注
+	private String methodImportPackage;//需要导入的包，逗号分隔
+	private String backupTxt1;//备用字段1
+	private String backupTxt2;//备用字段2
+	private String backupTxt3;//备用字段3
 	
 	public int getId() {
 		return id;
@@ -126,6 +130,30 @@ public class GrabDomainMethodInfo {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public String getMethodImportPackage() {
+		return methodImportPackage;
+	}
+	public void setMethodImportPackage(String methodImportPackage) {
+		this.methodImportPackage = methodImportPackage;
+	}
+	public String getBackupTxt1() {
+		return backupTxt1;
+	}
+	public void setBackupTxt1(String backupTxt1) {
+		this.backupTxt1 = backupTxt1;
+	}
+	public String getBackupTxt2() {
+		return backupTxt2;
+	}
+	public void setBackupTxt2(String backupTxt2) {
+		this.backupTxt2 = backupTxt2;
+	}
+	public String getBackupTxt3() {
+		return backupTxt3;
+	}
+	public void setBackupTxt3(String backupTxt3) {
+		this.backupTxt3 = backupTxt3;
 	}
 
 	

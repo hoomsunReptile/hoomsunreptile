@@ -27,7 +27,11 @@ public interface GrabDomainMethodInfoDao {
 		 @Result(property = "methodProcedureClazz", column = "method_procedure_clazz"),
 		 @Result(property = "methodExistFlag", column = "method_exist_flag"),
 		 @Result(property = "status", column = "status"),
-		 @Result(property = "remark", column = "remark")
+		 @Result(property = "remark", column = "remark"),
+		 @Result(property = "methodImportPackage", column = "method_import_package"),
+		 @Result(property = "backupTxt1", column = "backup_txt1"),
+		 @Result(property = "backupTxt2", column = "backup_txt2"),
+		 @Result(property = "backupTxt3", column = "backup_txt3"),
 	 })
 	 
 	 
