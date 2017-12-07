@@ -1,25 +1,15 @@
 package com.hoomsun.reptile.controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.hoomsun.reptile.entity.ModelBean;
 import com.hoomsun.reptile.service.AddMehtodService;
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.CtMethod;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sound.midi.Soundbank;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
@@ -29,9 +19,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("AddMehtodController")
 public class AddMehtodController {
-    static {
-        System.out.println("类已经被实例化");
-    }
     @Autowired
     private AddMehtodService service;
 
@@ -63,5 +50,16 @@ public class AddMehtodController {
         String s = service.putMenu(request, response, bean);
         System.out.println("新增模块完成");
         return "putmenu";
+    }
+
+    /**
+     *  根据id访问某个模块进行编辑
+     */
+    @RequestMapping(value = "editMenuById", method = RequestMethod.GET)
+    public String editMenuById(HttpServletRequest request,String menuId,Model model){
+        Map<String, String> stringStringMap = service.editMenuById(request,menuId);
+        System.out.println(stringStringMap);
+        model.addAttribute("editMenuById",stringStringMap);
+        return "addMethodImp";
     }
 }

@@ -186,7 +186,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="methodList : ${Method_Data}">
+                            <tr th:each="methodList:${Method_Data}">
                                 <td th:text="${methodList.id}">1</td>
                                 <td th:text="${methodList.grab_domain_cn_describe}">前端技术</td>
                                 <td th:text="${methodList.grab_domain_en_describe}">web</td>
@@ -194,7 +194,7 @@
                                 <td th:text="${methodList.control_flag}">前端技术</td>
                                 <td th:text="${methodList.keyboard_flag}">web</td>
                                 <td th:text="${methodList.login_in_param}">125</td>
-                                <td ><a th:href="@{/AddMehtodController/editMenuById(menuId=${methodList.id})}">编辑</a> <a rel="1">删除</a></td>
+                                <td ><a href="update-category.html">修改</a> <a rel="1">删除</a></td>
                             </tr>
 
                             </tbody>

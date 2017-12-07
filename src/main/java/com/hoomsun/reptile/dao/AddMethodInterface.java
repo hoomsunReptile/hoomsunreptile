@@ -23,4 +23,8 @@ public interface AddMethodInterface {
             "login_in_param,control_flag,keyboard_flag,remark) values(#{bean.categoryNameCN},#{bean.categoryNameEN}," +
             "#{bean.categoryCollectionUrl},#{bean.processParameters},#{bean.positioningControl},#{bean.keyBoard},#{bean.modelDescribe})")
     public void insertMenu(@Param("bean") ModelBean bean);
+
+    @Select("select * from grab_domain_basic_info where id=#{0}")
+    public Map<String,String> selectMenuById(String menuId);
+
 }

@@ -26,4 +26,9 @@ public class AddMehtodService {
         method.insertMenu(bean);
         return "hehe";
     }
+
+    public  Map<String, String> editMenuById(HttpServletRequest request,String menuId){
+        Map<String, String> stringStringMap = method.selectMenuById(menuId);
+        return stringStringMap;
+    }
 }
