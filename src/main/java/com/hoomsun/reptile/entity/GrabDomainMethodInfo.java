@@ -156,7 +156,31 @@ public class GrabDomainMethodInfo {
 		this.backupTxt3 = backupTxt3;
 	}
 
-	
-	
 
+	@Override
+	public String toString() {
+		return "GrabDomainMethodInfo{" +
+				"id=" + id +
+				", grabDomainBasicId=" + grabDomainBasicId +
+				", grabDomainProcedureId=" + grabDomainProcedureId +
+				", methodProcedureTotal=" + methodProcedureTotal +
+				", methodProcedureItem=" + methodProcedureItem +
+				", methodProcedureItemDescribe='" + methodProcedureItemDescribe + '\'' +
+				", methodProcedureName='" + methodProcedureName + '\'' +
+				", methodProcedureDescribe='" + methodProcedureDescribe + '\'' +
+				", methodProcedureInParam='" + methodProcedureInParam + '\'' +
+				", methodProcedureOutParamName='" + methodProcedureOutParamName + '\'' +
+				", methodProcedureOutParamType='" + methodProcedureOutParamType + '\'' +
+				", methodProcedureBody='" + methodProcedureBody + '\'' +
+				", methodProcedurePackage='" + methodProcedurePackage + '\'' +
+				", methodProcedureClazz='" + methodProcedureClazz + '\'' +
+				", methodExistFlag='" + methodExistFlag + '\'' +
+				", status='" + status + '\'' +
+				", remark='" + remark + '\'' +
+				", methodImportPackage='" + methodImportPackage + '\'' +
+				", backupTxt1='" + backupTxt1 + '\'' +
+				", backupTxt2='" + backupTxt2 + '\'' +
+				", backupTxt3='" + backupTxt3 + '\'' +
+				'}';
+	}
 }

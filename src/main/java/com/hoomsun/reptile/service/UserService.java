@@ -26,8 +26,6 @@ public class UserService {
 
     public String insert(String name, int age) {
         User user = new User();
-        user.setName(name);
-        user.setAge(age);
         userDao.insert(user);
         return "Insert ( \""+name+"\", age"+age+") OK!";
     }
