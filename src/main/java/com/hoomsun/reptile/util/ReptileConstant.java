@@ -29,15 +29,15 @@ public class ReptileConstant {
 	 * @param className
 	 * @return
 	 */
-	public static String getProductPath(String classPackage,String className){
-		return classPackage + ReptileConstant.POINT + className;
+	public static String getProductPath(String className){
+		return ReptileConstant.CLASS_PACKAGE_INFO + ReptileConstant.POINT + className;
 	}
 	
 	/**
 	 * 获取项目classes绝对路径
 	 * @return
 	 */
-	public static String getProductPath(){
+	public static String getProductAbsolutePath(){
 		String a = ReptileConstant.class.getResource("").getPath();
 		int end = a.indexOf("/classes")+9;
 		return a.substring(0,end)+ReptileConstant.CLASS_PACKAGE_INFO_A;
