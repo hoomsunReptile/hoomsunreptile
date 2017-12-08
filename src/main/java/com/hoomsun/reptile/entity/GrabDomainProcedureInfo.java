@@ -10,13 +10,13 @@ public class GrabDomainProcedureInfo {
 	private int id;//id
 	private int grabDomainBasicId;//抓取域基本信息id
 	private int grabDomainProcedureItem;//抓取域步骤
-	private String grabDomainMethodName;//方法名称
-	private String grabDomainMethodDescribe;//方法描述
-	private String grabDomainMethodInParam;//方法入参
-	private String grabDomainMethodOutParamName;//方法出参名
-	private String grabDomainMethodOutParamType;//方法出参类型
-	private String grabDomainMethodPackage;//方法所在包名
-	private String grabDomainMethodClazz;//方法所在类名
+	private String grabDomainProcedureName;//抓取域方法名称
+	private String grabDomainProcedureDescribe;//抓取域方法描述
+	private String grabDomainProcedureInParam;//抓取域方法入参
+	private String grabDomainProcedureOutParamName;//抓取域方法出参名
+	private String grabDomainProcedureOutParamType;//抓取域方法出参类型
+	private String grabDomainProcedurePackage;//抓取域方法所在包名
+	private String grabDomainProcedureClazz;//抓取域方法所在类名
 	private String remark;//备注
 	private String backupTxt1;//备用字段1
 	
@@ -38,47 +38,47 @@ public class GrabDomainProcedureInfo {
 	public void setGrabDomainProcedureItem(int grabDomainProcedureItem) {
 		this.grabDomainProcedureItem = grabDomainProcedureItem;
 	}
-	public String getGrabDomainMethodName() {
-		return grabDomainMethodName;
+	public String getGrabDomainProcedureName() {
+		return grabDomainProcedureName;
 	}
-	public void setGrabDomainMethodName(String grabDomainMethodName) {
-		this.grabDomainMethodName = grabDomainMethodName;
+	public void setGrabDomainProcedureName(String grabDomainProcedureName) {
+		this.grabDomainProcedureName = grabDomainProcedureName;
 	}
-	public String getGrabDomainMethodDescribe() {
-		return grabDomainMethodDescribe;
+	public String getGrabDomainProcedureDescribe() {
+		return grabDomainProcedureDescribe;
 	}
-	public void setGrabDomainMethodDescribe(String grabDomainMethodDescribe) {
-		this.grabDomainMethodDescribe = grabDomainMethodDescribe;
+	public void setGrabDomainProcedureDescribe(String grabDomainProcedureDescribe) {
+		this.grabDomainProcedureDescribe = grabDomainProcedureDescribe;
 	}
-	public String getGrabDomainMethodInParam() {
-		return grabDomainMethodInParam;
+	public String getGrabDomainProcedureInParam() {
+		return grabDomainProcedureInParam;
 	}
-	public void setGrabDomainMethodInParam(String grabDomainMethodInParam) {
-		this.grabDomainMethodInParam = grabDomainMethodInParam;
+	public void setGrabDomainProcedureInParam(String grabDomainProcedureInParam) {
+		this.grabDomainProcedureInParam = grabDomainProcedureInParam;
 	}
-	public String getGrabDomainMethodOutParamName() {
-		return grabDomainMethodOutParamName;
+	public String getGrabDomainProcedureOutParamName() {
+		return grabDomainProcedureOutParamName;
 	}
-	public void setGrabDomainMethodOutParamName(String grabDomainMethodOutParamName) {
-		this.grabDomainMethodOutParamName = grabDomainMethodOutParamName;
+	public void setGrabDomainProcedureOutParamName(String grabDomainProcedureOutParamName) {
+		this.grabDomainProcedureOutParamName = grabDomainProcedureOutParamName;
 	}
-	public String getGrabDomainMethodOutParamType() {
-		return grabDomainMethodOutParamType;
+	public String getGrabDomainProcedureOutParamType() {
+		return grabDomainProcedureOutParamType;
 	}
-	public void setGrabDomainMethodOutParamType(String grabDomainMethodOutParamType) {
-		this.grabDomainMethodOutParamType = grabDomainMethodOutParamType;
+	public void setGrabDomainProcedureOutParamType(String grabDomainProcedureOutParamType) {
+		this.grabDomainProcedureOutParamType = grabDomainProcedureOutParamType;
 	}
-	public String getGrabDomainMethodPackage() {
-		return grabDomainMethodPackage;
+	public String getGrabDomainProcedurePackage() {
+		return grabDomainProcedurePackage;
 	}
-	public void setGrabDomainMethodPackage(String grabDomainMethodPackage) {
-		this.grabDomainMethodPackage = grabDomainMethodPackage;
+	public void setGrabDomainProcedurePackage(String grabDomainProcedurePackage) {
+		this.grabDomainProcedurePackage = grabDomainProcedurePackage;
 	}
-	public String getGrabDomainMethodClazz() {
-		return grabDomainMethodClazz;
+	public String getGrabDomainProcedureClazz() {
+		return grabDomainProcedureClazz;
 	}
-	public void setGrabDomainMethodClazz(String grabDomainMethodClazz) {
-		this.grabDomainMethodClazz = grabDomainMethodClazz;
+	public void setGrabDomainProcedureClazz(String grabDomainProcedureClazz) {
+		this.grabDomainProcedureClazz = grabDomainProcedureClazz;
 	}
 	public String getRemark() {
 		return remark;

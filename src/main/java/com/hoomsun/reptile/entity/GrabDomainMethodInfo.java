@@ -10,17 +10,17 @@ public class GrabDomainMethodInfo {
 	private int id;//id
 	private int grabDomainBasicId;//抓取域基本信息id
 	private int grabDomainProcedureId;//抓取域步骤id
-	private int methodProcedureTotal;//方法调用步骤总数
-	private int methodProcedureItem;//方法调用步骤
-	private String methodProcedureItemDescribe;//执行方法具体描述
-	private String methodProcedureName;//执行方法名称
-	private String methodProcedureDescribe;//执行方法描述
-	private String methodProcedureInParam;//执行方法入参
-	private String methodProcedureOutParamName;//执行方法出参名
-	private String methodProcedureOutParamType;//执行方法出参类型
-	private String methodProcedureBody;//执行方法体
-	private String methodProcedurePackage;//执行方法所在包名
-	private String methodProcedureClazz;//执行方法所在类名
+	private int methodCountTotal;//调用方法总数
+	private int methodItem;//调用的方法为第几步
+	private String methodItemDescribe;//执行方法具体描述
+	private String methodName;//执行方法名称
+	private String methodDescribe;//执行方法描述
+	private String methodInParam;//执行方法入参
+	private String methodOutParamName;//执行方法出参名
+	private String methodOutParamType;//执行方法出参类型
+	private String methodBody;//执行方法体
+	private String methodPackage;//执行方法所在包名
+	private String methodClazz;//执行方法所在类名
 	private String methodExistFlag;//是否可调用已有的方法
 	private String status;//状态
 	private String remark;//备注
@@ -29,132 +29,341 @@ public class GrabDomainMethodInfo {
 	private String backupTxt2;//备用字段2
 	private String backupTxt3;//备用字段3
 	
+
 	public int getId() {
 		return id;
 	}
+
+
+
+
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
+
+
+
 	public int getGrabDomainBasicId() {
 		return grabDomainBasicId;
 	}
+
+
+
+
+
 	public void setGrabDomainBasicId(int grabDomainBasicId) {
 		this.grabDomainBasicId = grabDomainBasicId;
 	}
+
+
+
+
+
 	public int getGrabDomainProcedureId() {
 		return grabDomainProcedureId;
 	}
+
+
+
+
+
 	public void setGrabDomainProcedureId(int grabDomainProcedureId) {
 		this.grabDomainProcedureId = grabDomainProcedureId;
 	}
-	public int getMethodProcedureTotal() {
-		return methodProcedureTotal;
+
+
+
+
+
+	public int getMethodCountTotal() {
+		return methodCountTotal;
 	}
-	public void setMethodProcedureTotal(int methodProcedureTotal) {
-		this.methodProcedureTotal = methodProcedureTotal;
+
+
+
+
+
+	public void setMethodCountTotal(int methodCountTotal) {
+		this.methodCountTotal = methodCountTotal;
 	}
-	public int getMethodProcedureItem() {
-		return methodProcedureItem;
+
+
+
+
+
+	public int getMethodItem() {
+		return methodItem;
 	}
-	public void setMethodProcedureItem(int methodProcedureItem) {
-		this.methodProcedureItem = methodProcedureItem;
+
+
+
+
+
+	public void setMethodItem(int methodItem) {
+		this.methodItem = methodItem;
 	}
-	public String getMethodProcedureItemDescribe() {
-		return methodProcedureItemDescribe;
+
+
+
+
+
+	public String getMethodItemDescribe() {
+		return methodItemDescribe;
 	}
-	public void setMethodProcedureItemDescribe(String methodProcedureItemDescribe) {
-		this.methodProcedureItemDescribe = methodProcedureItemDescribe;
+
+
+
+
+
+	public void setMethodItemDescribe(String methodItemDescribe) {
+		this.methodItemDescribe = methodItemDescribe;
 	}
-	public String getMethodProcedureName() {
-		return methodProcedureName;
+
+
+
+
+
+	public String getMethodName() {
+		return methodName;
 	}
-	public void setMethodProcedureName(String methodProcedureName) {
-		this.methodProcedureName = methodProcedureName;
+
+
+
+
+
+	public void setMethodName(String methodName) {
+		this.methodName = methodName;
 	}
-	public String getMethodProcedureDescribe() {
-		return methodProcedureDescribe;
+
+
+
+
+
+	public String getMethodDescribe() {
+		return methodDescribe;
 	}
-	public void setMethodProcedureDescribe(String methodProcedureDescribe) {
-		this.methodProcedureDescribe = methodProcedureDescribe;
+
+
+
+
+
+	public void setMethodDescribe(String methodDescribe) {
+		this.methodDescribe = methodDescribe;
 	}
-	public String getMethodProcedureInParam() {
-		return methodProcedureInParam;
+
+
+
+
+
+	public String getMethodInParam() {
+		return methodInParam;
 	}
-	public void setMethodProcedureInParam(String methodProcedureInParam) {
-		this.methodProcedureInParam = methodProcedureInParam;
+
+
+
+
+
+	public void setMethodInParam(String methodInParam) {
+		this.methodInParam = methodInParam;
 	}
-	public String getMethodProcedureOutParamName() {
-		return methodProcedureOutParamName;
+
+
+
+
+
+	public String getMethodOutParamName() {
+		return methodOutParamName;
 	}
-	public void setMethodProcedureOutParamName(String methodProcedureOutParamName) {
-		this.methodProcedureOutParamName = methodProcedureOutParamName;
+
+
+
+
+
+	public void setMethodOutParamName(String methodOutParamName) {
+		this.methodOutParamName = methodOutParamName;
 	}
-	public String getMethodProcedureOutParamType() {
-		return methodProcedureOutParamType;
+
+
+
+
+
+	public String getMethodOutParamType() {
+		return methodOutParamType;
 	}
-	public void setMethodProcedureOutParamType(String methodProcedureOutParamType) {
-		this.methodProcedureOutParamType = methodProcedureOutParamType;
+
+
+
+
+
+	public void setMethodOutParamType(String methodOutParamType) {
+		this.methodOutParamType = methodOutParamType;
 	}
-	public String getMethodProcedureBody() {
-		return methodProcedureBody;
+
+
+
+
+
+	public String getMethodBody() {
+		return methodBody;
 	}
-	public void setMethodProcedureBody(String methodProcedureBody) {
-		this.methodProcedureBody = methodProcedureBody;
+
+
+
+
+
+	public void setMethodBody(String methodBody) {
+		this.methodBody = methodBody;
 	}
-	public String getMethodProcedurePackage() {
-		return methodProcedurePackage;
+
+
+
+
+
+	public String getMethodPackage() {
+		return methodPackage;
 	}
-	public void setMethodProcedurePackage(String methodProcedurePackage) {
-		this.methodProcedurePackage = methodProcedurePackage;
+
+
+
+
+
+	public void setMethodPackage(String methodPackage) {
+		this.methodPackage = methodPackage;
 	}
-	public String getMethodProcedureClazz() {
-		return methodProcedureClazz;
+
+
+
+
+
+	public String getMethodClazz() {
+		return methodClazz;
 	}
-	public void setMethodProcedureClazz(String methodProcedureClazz) {
-		this.methodProcedureClazz = methodProcedureClazz;
+
+
+
+
+
+	public void setMethodClazz(String methodClazz) {
+		this.methodClazz = methodClazz;
 	}
+
+
+
+
+
 	public String getMethodExistFlag() {
 		return methodExistFlag;
 	}
+
+
+
+
+
 	public void setMethodExistFlag(String methodExistFlag) {
 		this.methodExistFlag = methodExistFlag;
 	}
+
+
+
+
+
 	public String getStatus() {
 		return status;
 	}
+
+
+
+
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+
+
+
+
 	public String getRemark() {
 		return remark;
 	}
+
+
+
+
+
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
+
+
+
+
 	public String getMethodImportPackage() {
 		return methodImportPackage;
 	}
+
+
+
+
+
 	public void setMethodImportPackage(String methodImportPackage) {
 		this.methodImportPackage = methodImportPackage;
 	}
+
+
+
+
+
 	public String getBackupTxt1() {
 		return backupTxt1;
 	}
+
+
+
+
+
 	public void setBackupTxt1(String backupTxt1) {
 		this.backupTxt1 = backupTxt1;
 	}
+
+
+
+
+
 	public String getBackupTxt2() {
 		return backupTxt2;
 	}
+
+
+
+
+
 	public void setBackupTxt2(String backupTxt2) {
 		this.backupTxt2 = backupTxt2;
 	}
+
+
+
+
+
 	public String getBackupTxt3() {
 		return backupTxt3;
 	}
+
+
+
+
+
 	public void setBackupTxt3(String backupTxt3) {
 		this.backupTxt3 = backupTxt3;
 	}
+
+
+
 
 
 	@Override
@@ -163,17 +372,17 @@ public class GrabDomainMethodInfo {
 				"id=" + id +
 				", grabDomainBasicId=" + grabDomainBasicId +
 				", grabDomainProcedureId=" + grabDomainProcedureId +
-				", methodProcedureTotal=" + methodProcedureTotal +
-				", methodProcedureItem=" + methodProcedureItem +
-				", methodProcedureItemDescribe='" + methodProcedureItemDescribe + '\'' +
-				", methodProcedureName='" + methodProcedureName + '\'' +
-				", methodProcedureDescribe='" + methodProcedureDescribe + '\'' +
-				", methodProcedureInParam='" + methodProcedureInParam + '\'' +
-				", methodProcedureOutParamName='" + methodProcedureOutParamName + '\'' +
-				", methodProcedureOutParamType='" + methodProcedureOutParamType + '\'' +
-				", methodProcedureBody='" + methodProcedureBody + '\'' +
-				", methodProcedurePackage='" + methodProcedurePackage + '\'' +
-				", methodProcedureClazz='" + methodProcedureClazz + '\'' +
+				", methodCountTotal=" + methodCountTotal +
+				", methodItem=" + methodItem +
+				", methodItemDescribe='" + methodItemDescribe + '\'' +
+				", methodName='" + methodName + '\'' +
+				", methodDescribe='" + methodDescribe + '\'' +
+				", methodInParam='" + methodInParam + '\'' +
+				", methodOutParamName='" + methodOutParamName + '\'' +
+				", methodOutParamType='" + methodOutParamType + '\'' +
+				", methodBody='" + methodBody + '\'' +
+				", methodPackage='" + methodPackage + '\'' +
+				", methodClazz='" + methodClazz + '\'' +
 				", methodExistFlag='" + methodExistFlag + '\'' +
 				", status='" + status + '\'' +
 				", remark='" + remark + '\'' +
