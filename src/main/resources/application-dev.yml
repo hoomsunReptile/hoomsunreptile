@@ -8,9 +8,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.2.151:3306/bigyoung?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://192.168.2.246:3306/bigyoung?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=utf-8
     username: root
-    password: 123
+    password: 1234
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
           max-lifetime: 1765000
