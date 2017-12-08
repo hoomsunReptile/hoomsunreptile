@@ -40,7 +40,7 @@ public class GrabDomainMethodController {
     }
 
     /**
-     * 根据某个id对方法进行修改
+     * 根据id对方法进行修改
      * id和修改后的信息皆封装到bean中
      *
      * @param info

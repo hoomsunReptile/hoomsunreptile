@@ -38,7 +38,6 @@ public interface GrabDomainMethodInfoDao {
             @Result(property = "backupTxt3", column = "backup_txt3"),
     })
 
-
     @Select("SELECT * FROM grab_domain_method_info WHERE grab_domain_procedure_id = #{grabDomainProcedureId}")
     List<GrabDomainMethodInfo> getMethodById(int grabDomainProcedureId);
 
@@ -46,9 +45,9 @@ public interface GrabDomainMethodInfoDao {
             "            method_item, method_item_describe, method_name, method_describe, method_in_param," +
             "            method_out_param_name, method_out_param_type, method_body, method_package, method_clazz," +
             "            method_exist_flag, status, remark, backup_txt1, backup_txt2, backup_txt3, method_import_package)" +
-            "            VALUES ( #{grabDomainBasicId}, #{grabDomainProcedureId}, #{methodProcedureTotal}, #{methodProcedureItem}, #{methodProcedureItemDescribe}," +
-            "            #{methodProcedureName}, #{methodProcedureDescribe},#{methodProcedureInParam}, #{methodProcedureOutParamName}, #{methodProcedureOutParamType}," +
-            "            #{methodProcedureBody},#{methodProcedurePackage}, #{methodProcedureClazz}, #{methodExistFlag},#{status}, #{remark}, #{backupTxt1},#{backupTxt2}," +
+            "            VALUES ( #{grabDomainBasicId}, #{grabDomainProcedureId}, #{methodCountTotal}, #{methodItem}, #{methodItemDescribe}," +
+            "            #{methodName}, #{methodDescribe},#{methodInParam}, #{methodOutParamName}, #{methodOutParamType}," +
+            "            #{methodBody},#{methodPackage}, #{methodClazz}, #{methodExistFlag},#{status}, #{remark}, #{backupTxt1},#{backupTxt2}," +
             "            #{backupTxt3}, #{methodImportPackage})")
     int postNewMethod(GrabDomainMethodInfo info);
 
@@ -57,12 +56,12 @@ public interface GrabDomainMethodInfoDao {
 
     @Update("update grab_domain_method_info set " +
             "grab_domain_basic_id=#{grabDomainBasicId},grab_domain_procedure_id= #{grabDomainProcedureId}," +
-            "method_count_total=#{methodProcedureTotal},method_item=#{methodProcedureItem}," +
-            "method_item_describe=#{methodProcedureItemDescribe},method_name=#{methodProcedureName}," +
-            "method_describe= #{methodProcedureDescribe},method_in_param=#{methodProcedureInParam}," +
-            "method_out_param_name=#{methodProcedureOutParamName},method_out_param_type= #{methodProcedureOutParamType}," +
-            "method_body= #{methodProcedureBody},method_package=#{methodProcedurePackage}," +
-            "method_clazz=#{methodProcedureClazz},method_exist_flag=#{methodExistFlag},status=#{status}," +
+            "method_count_total=#{methodCountTotal},method_item=#{methodItem}," +
+            "method_item_describe=#{methodItemDescribe},method_name=#{methodName}," +
+            "method_describe= #{methodDescribe},method_in_param=#{methodInParam}," +
+            "method_out_param_name=#{methodOutParamName},method_out_param_type= #{methodOutParamType}," +
+            "method_body= #{methodBody},method_package=#{methodPackage}," +
+            "method_clazz=#{methodClazz},method_exist_flag=#{methodExistFlag},status=#{status}," +
             "remark=#{remark},backup_txt1=#{backupTxt1},backup_txt2=#{backupTxt2},backup_txt3=#{backupTxt3}," +
             "method_import_package=#{methodImportPackage}" +
             " where id=#{id}")

@@ -1,8 +1,10 @@
 package com.test.junit;
 
 import com.hoomsun.reptile.entity.GrabDomainMethodInfo;
+import com.hoomsun.reptile.entity.GrabDomainProcedureInfo;
 import com.hoomsun.reptile.main.StartApp;
 import com.hoomsun.reptile.service.GrabDomainMethodService;
+import com.hoomsun.reptile.service.GrabDomainProcedureService;
 import com.hoomsun.reptile.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 测试类
@@ -25,8 +28,8 @@ public class InsertTest {
     private UserService userServices;
     @Resource
     GrabDomainMethodService methodController;
-
-
+    @Resource
+    GrabDomainProcedureService service;
 
     @Test
     public void test() {
@@ -47,7 +50,7 @@ public class InsertTest {
 
     @Test
     public  void deleteMethod(){
-        methodController.deleteMethodById("10");
+        methodController.deleteMethodById("11");
     }
 
     @Test
@@ -57,18 +60,38 @@ public class InsertTest {
         methodInfo.setBackupTxt2("还");
         methodInfo.setBackupTxt3("好");
         methodInfo.setMethodName("吗");
-        methodInfo.setId(11);
+        methodInfo.setId(12);
         methodController.putMethodById(methodInfo);
     }
 
-//    @Test
-//    public void postProcedure(){
-//        GrabDomainProcedureInfo procedureInfo=new GrabDomainProcedureInfo();
-//        procedureInfo.setBackupTxt1("123456");
-//        procedureInfo.setGrabDomainMethodName("雪松崔");
-//        procedureInfo.setGrabDomainMethodInParam("不认真");
-//        procedureInfo.setGrabDomainMethodPackage("必须差评");
-//        procedureService.postNewProcedure(procedureInfo);
-//    }
+    @Test
+    public void postProcedure(){
+        GrabDomainProcedureInfo procedureInfo=new GrabDomainProcedureInfo();
+        procedureInfo.setBackupTxt1("123456");
+        procedureInfo.setGrabDomainProcedureName("雪松崔");
+        procedureInfo.setGrabDomainProcedureInParam("不认真");
+        procedureInfo.setGrabDomainProcedurePackage("必须差评");
+        service.postNewProcedure(procedureInfo);
+    }
+
+    @Test
+    public void deleteProcedureByid(){
+        service.deleteProcedureById("4");
+    }
+
+    @Test
+    public void putProcedure(){
+        GrabDomainProcedureInfo info=new GrabDomainProcedureInfo();
+        info.setId(2);
+        info.setGrabDomainBasicId(112);
+        info.setGrabDomainProcedureName("呵呵哒");
+        service.putProcedureById(info);
+    }
+
+    @Test
+    public  void  getProcedure(){
+        List<GrabDomainProcedureInfo> procedureById = service.getProcedureById(1);
+        System.out.println(procedureById);
+    }
 
 }

@@ -98,9 +98,23 @@ public class GrabDomainBasicInfo {
 	public void setBackupTxt3(String backupTxt3) {
 		this.backupTxt3 = backupTxt3;
 	}
-	
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "GrabDomainBasicInfo{" +
+				"id=" + id +
+				", grabDomainEnDescribe='" + grabDomainEnDescribe + '\'' +
+				", grabDomainCnDescribe='" + grabDomainCnDescribe + '\'' +
+				", grabDomainProcedureTotal=" + grabDomainProcedureTotal +
+				", grabDomainLoginAddress='" + grabDomainLoginAddress + '\'' +
+				", loginInParam='" + loginInParam + '\'' +
+				", controlFlag='" + controlFlag + '\'' +
+				", keyboardFlag='" + keyboardFlag + '\'' +
+				", status='" + status + '\'' +
+				", remark='" + remark + '\'' +
+				", backupTxt1='" + backupTxt1 + '\'' +
+				", backupTxt2='" + backupTxt2 + '\'' +
+				", backupTxt3='" + backupTxt3 + '\'' +
+				'}';
+	}
 }

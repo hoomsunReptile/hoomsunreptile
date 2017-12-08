@@ -19,7 +19,25 @@ public class GrabDomainProcedureInfo {
 	private String grabDomainProcedureClazz;//抓取域方法所在类名
 	private String remark;//备注
 	private String backupTxt1;//备用字段1
-	
+	private String backupTxt2;//备用字段1
+	private String backupTxt3;//备用字段1
+
+	public String getBackupTxt2() {
+		return backupTxt2;
+	}
+
+	public void setBackupTxt2(String backupTxt2) {
+		this.backupTxt2 = backupTxt2;
+	}
+
+	public String getBackupTxt3() {
+		return backupTxt3;
+	}
+
+	public void setBackupTxt3(String backupTxt3) {
+		this.backupTxt3 = backupTxt3;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -93,6 +111,23 @@ public class GrabDomainProcedureInfo {
 		this.backupTxt1 = backupTxt1;
 	}
 
-	
-	
+	@Override
+	public String toString() {
+		return "GrabDomainProcedureInfo{" +
+				"id=" + id +
+				", grabDomainBasicId=" + grabDomainBasicId +
+				", grabDomainProcedureItem=" + grabDomainProcedureItem +
+				", grabDomainProcedureName='" + grabDomainProcedureName + '\'' +
+				", grabDomainProcedureDescribe='" + grabDomainProcedureDescribe + '\'' +
+				", grabDomainProcedureInParam='" + grabDomainProcedureInParam + '\'' +
+				", grabDomainProcedureOutParamName='" + grabDomainProcedureOutParamName + '\'' +
+				", grabDomainProcedureOutParamType='" + grabDomainProcedureOutParamType + '\'' +
+				", grabDomainProcedurePackage='" + grabDomainProcedurePackage + '\'' +
+				", grabDomainProcedureClazz='" + grabDomainProcedureClazz + '\'' +
+				", remark='" + remark + '\'' +
+				", backupTxt1='" + backupTxt1 + '\'' +
+				", backupTxt2='" + backupTxt2 + '\'' +
+				", backupTxt3='" + backupTxt3 + '\'' +
+				'}';
+	}
 }

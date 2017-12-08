@@ -1,9 +1,6 @@
 package com.hoomsun.reptile.dao;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import com.hoomsun.reptile.entity.GrabDomainBasicInfo;
 
@@ -30,5 +27,9 @@ public interface GrabDomainBasicInfoDao {
  @Select("SELECT * FROM grab_domain_basic_info WHERE grab_domain_en_describe = #{grabDomainEnDescribe} order by id desc limit 1")
  GrabDomainBasicInfo get(String grabDomainEnDescribe);
 
-
+ @Insert("insert into  grab_domain_basic_info(grab_domain_en_describe,grab_domain_cn_describe,grab_domain_procedure_total," +
+		 "grab_domain_login_address,login_in_param,control_flag,keyboard_flag,status,remark,backup_txt1,backup_txt2,backup_txt3}) values(" +
+		 "#{grabDomainEnDescribe},#{grabDomainCnDescribe},#{grabDomainProcedureTotal},#{grabDomainLoginAddress},#{loginInParam},#{controlFlag}," +
+		 "#{keyboardFlag},#{status},#{remark},#{backupTxt1},#{backupTxt2},#{backupTxt3})")
+ void postNewBasic(GrabDomainBasicInfo basicInfo);
 }
