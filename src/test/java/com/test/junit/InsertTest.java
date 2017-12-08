@@ -1,11 +1,9 @@
 package com.test.junit;
 
-import com.hoomsun.reptile.controller.GrabDomainMethodController;
 import com.hoomsun.reptile.entity.GrabDomainMethodInfo;
 import com.hoomsun.reptile.main.StartApp;
 import com.hoomsun.reptile.service.GrabDomainMethodService;
 import com.hoomsun.reptile.service.UserService;
-import com.hoomsun.reptile.util.CommonMethodUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.annotation.Resource;
-import java.util.Map;
 
 /**
  * 测试类
@@ -28,6 +25,8 @@ public class InsertTest {
     private UserService userServices;
     @Resource
     GrabDomainMethodService methodController;
+
+
 
     @Test
     public void test() {
@@ -61,5 +60,15 @@ public class InsertTest {
         methodInfo.setId(11);
         methodController.putMethodById(methodInfo);
     }
+
+//    @Test
+//    public void postProcedure(){
+//        GrabDomainProcedureInfo procedureInfo=new GrabDomainProcedureInfo();
+//        procedureInfo.setBackupTxt1("123456");
+//        procedureInfo.setGrabDomainMethodName("雪松崔");
+//        procedureInfo.setGrabDomainMethodInParam("不认真");
+//        procedureInfo.setGrabDomainMethodPackage("必须差评");
+//        procedureService.postNewProcedure(procedureInfo);
+//    }
 
 }
