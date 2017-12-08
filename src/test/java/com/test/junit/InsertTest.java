@@ -42,7 +42,7 @@ public class InsertTest {
         methodInfo.setBackupTxt1("123456");
         methodInfo.setBackupTxt2("7899");
         methodInfo.setBackupTxt3("101010101");
-        methodInfo.setMethodProcedureName("你在哪里");
+        methodInfo.setMethodName("你在哪里");
         methodController.postNewMethod(methodInfo);
     }
 
@@ -57,7 +57,7 @@ public class InsertTest {
         methodInfo.setBackupTxt1("你");
         methodInfo.setBackupTxt2("还");
         methodInfo.setBackupTxt3("好");
-        methodInfo.setMethodProcedureName("吗");
+        methodInfo.setMethodName("吗");
         methodInfo.setId(11);
         methodController.putMethodById(methodInfo);
     }

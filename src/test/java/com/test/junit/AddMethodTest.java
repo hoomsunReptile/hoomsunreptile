@@ -19,6 +19,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.hoomsun.reptile.dao.GrabDomainMethodInfoDao;
 import com.hoomsun.reptile.entity.GrabDomainMethodInfo;
 import com.hoomsun.reptile.main.StartApp;
+import com.hoomsun.reptile.service.GrabDomainMethodService;
 
 import javassist.CannotCompileException;
 import javassist.ClassPool;
@@ -37,20 +38,20 @@ import javassist.NotFoundException;
 @WebAppConfiguration
 public class AddMethodTest {
     @Autowired
-    GrabDomainMethodInfoDao methodInfoDao;
+    GrabDomainMethodService methodInfoService;
 
 	@Test
 	public void test2() throws CannotCompileException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, NotFoundException{
 		GrabDomainMethodInfo basicInfo = new GrabDomainMethodInfo();
-		basicInfo.setMethodProcedureClazz("TestTwo");
-		basicInfo.setMethodProcedureBody("{System.out.println(1);}");
-		basicInfo.setMethodProcedureName("test");
+		basicInfo.setMethodClazz("TestTwo");
+		basicInfo.setMethodBody("{System.out.println(1);}");
+		basicInfo.setMethodName("test");
 		basicInfo.setMethodImportPackage("com.test,com.test.util");
 		ClassPool pool = ClassPool.getDefault(); 
 		pool.insertClassPath("/Users/hongzheng/git/hoomsunreptile/target/test-classes/");
 		CtClass cc1 = pool.get("com.test.junit.InsertTest"); 
         try {
-    	    methodInfoDao.postNewMethod(basicInfo);
+        	methodInfoService.postNewMethod(basicInfo);
     	    System.out.println("成功");
 		} catch (Exception e) {
 	 	    System.out.println("失败");

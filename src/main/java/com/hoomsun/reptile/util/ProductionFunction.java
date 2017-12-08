@@ -35,7 +35,7 @@ public class ProductionFunction {
 			ClassPool pool = ClassPool.getDefault();
 			// 通过ClassPool生成一个public新类Emp.java
 			/* 类头部到引用 */
-			String className = ReptileConstant.getProductPath(grabDomainMethodInfo.getMethodProcedureClazz());
+			String className = ReptileConstant.getProductPath(grabDomainMethodInfo.getMethodClazz());
 			CtClass ctClass = pool.makeClass(className);
 			/* 引入包名 多个 */
 			String packageName = grabDomainMethodInfo.getMethodImportPackage();
@@ -48,7 +48,7 @@ public class ProductionFunction {
 			}
 
 			// //添加自定义方法 此处传入方法名
-			CtMethod ctMethod = new CtMethod(CtClass.voidType, grabDomainMethodInfo.getMethodProcedureName(),
+			CtMethod ctMethod = new CtMethod(CtClass.voidType, grabDomainMethodInfo.getMethodName(),
 					new CtClass[] {}, ctClass);
 			// //为自定义方法设置修饰符
 			ctMethod.setModifiers(Modifier.PUBLIC);
@@ -56,7 +56,7 @@ public class ProductionFunction {
 			StringBuffer buffer2 = new StringBuffer();
 
 			// 为自定义方法设置函数体 (动态参数设置方法体)
-			buffer2.append(grabDomainMethodInfo.getMethodProcedureBody());
+			buffer2.append(grabDomainMethodInfo.getMethodBody());
 			ctMethod.setBody(buffer2.toString());
 			ctClass.addMethod(ctMethod);
 
@@ -65,7 +65,7 @@ public class ProductionFunction {
 			byte[] byteArr = ctClass.toBytecode();
 
 			fos = new FileOutputStream(new File(ReptileConstant.getProductAbsolutePath()
-					+ grabDomainMethodInfo.getMethodProcedureClazz() + ".class"));
+					+ grabDomainMethodInfo.getMethodClazz() + ".class"));
 
 			fos.write(byteArr);
 			fos.close();
@@ -79,13 +79,16 @@ public class ProductionFunction {
 	}
 
 	public static void main(String[] args) throws Exception {
-		GrabDomainMethodInfo basicInfo = new GrabDomainMethodInfo();
-
-		basicInfo.setMethodProcedureClazz("TestTwo");
-		basicInfo.setMethodProcedureBody("{System.out.println(1);}");
-		basicInfo.setMethodProcedureName("test");
-		basicInfo.setMethodImportPackage("com.test,com.test.util");
-		System.out.println(Addmehod(basicInfo));
+//		GrabDomainMethodInfo basicInfo = new GrabDomainMethodInfo();
+//
+//		basicInfo.setMethodClazz("TestTwo");
+//		basicInfo.setMethodBody("{System.out.println(1);}");
+//		basicInfo.setMethodName("test");
+//		basicInfo.setMethodImportPackage("com.test,com.test.util");
+//		System.out.println(Addmehod(basicInfo));
+		ClassPool pool = ClassPool.getDefault();
+		CtClass ctClass = pool.get(ReptileConstant.getProductPath("TestTwo"));
+		System.out.println(ctClass.getMethods().toString());;
 	}
 
 }
