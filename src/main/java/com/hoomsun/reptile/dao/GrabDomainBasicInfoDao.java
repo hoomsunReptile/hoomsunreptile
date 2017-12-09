@@ -7,9 +7,20 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
+/**
+ * GrabDomainBasicInfoDao
+ *
+ * @author mrlu
+ * @date 2017/12/9
+ */
 @Mapper
 public interface GrabDomainBasicInfoDao {
 
+    /**
+     * 根据给定的英文名称获取对应的模块基本信息
+     * @param grabDomainEnDescribe
+     * @return
+     */
     @Results({
             @Result(property = "id", column = "id"),
             @Result(property = "grabDomainEnDescribe", column = "grab_domain_en_describe"),
@@ -26,25 +37,41 @@ public interface GrabDomainBasicInfoDao {
             @Result(property = "backupTxt3", column = "backup_txt3")
     })
 
-
     @Select("SELECT * FROM grab_domain_basic_info WHERE grab_domain_en_describe = #{grabDomainEnDescribe} order by id desc limit 1")
     GrabDomainBasicInfo get(String grabDomainEnDescribe);
 
+    /**
+     *新增模块
+     * @param basicInfo
+     */
     @Insert("insert into  grab_domain_basic_info(grab_domain_en_describe,grab_domain_cn_describe,grab_domain_procedure_total," +
             "grab_domain_login_address,login_in_param,control_flag,keyboard_flag,status,remark,backup_txt1,backup_txt2,backup_txt3) values(" +
             "#{grabDomainEnDescribe},#{grabDomainCnDescribe},#{grabDomainProcedureTotal},#{grabDomainLoginAddress},#{loginInParam},#{controlFlag}," +
             "#{keyboardFlag},#{status},#{remark},#{backupTxt1},#{backupTxt2},#{backupTxt3})")
     void postNewBasic(GrabDomainBasicInfo basicInfo);
 
+    /**
+     * 删除对应的基本信息
+     * @param id
+     */
     @Delete("delete from grab_domain_basic_info where id=#{id} ")
     void deleteBasicById(String id);
 
+    /**
+     * 根据给定的id修改对应的模块基本信息
+     * @param basicInfo
+     */
     @Update("update grab_domain_basic_info set grab_domain_en_describe=#{grabDomainEnDescribe},grab_domain_cn_describe=#{grabDomainCnDescribe}," +
             "grab_domain_procedure_total=#{grabDomainProcedureTotal},grab_domain_login_address=#{grabDomainLoginAddress}," +
             "login_in_param=#{loginInParam},control_flag=#{controlFlag},keyboard_flag=#{keyboardFlag},status=#{status},remark=#{remark}," +
             "backup_txt1=#{backupTxt1},backup_txt2=#{backupTxt2},backup_txt3=#{backupTxt3} where id=#{id}")
     void putBasicById(GrabDomainBasicInfo basicInfo);
 
+    /**
+     * 根据id获取对应的模块基本信息
+     * @param id
+     * @return
+     */
     @Results({
             @Result(property = "id", column = "id"),
             @Result(property = "grabDomainEnDescribe", column = "grab_domain_en_describe"),
@@ -63,6 +90,10 @@ public interface GrabDomainBasicInfoDao {
     @Select("select * from grab_domain_basic_info where id=#{id}")
     GrabDomainBasicInfo  getBasicById(String id);
 
+    /**
+     * 获得所有的模块基本信息
+     * @return
+     */
     @Results({
             @Result(property = "id", column = "id"),
             @Result(property = "grabDomainEnDescribe", column = "grab_domain_en_describe"),

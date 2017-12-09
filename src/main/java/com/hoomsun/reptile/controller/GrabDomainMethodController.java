@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * GrabDomainMethodController
+ *
+ * @author mrlu
+ * @date 2017/12/9
+ */
 @Controller
 @RequestMapping("GrabDomainMethodController")
 public class GrabDomainMethodController {
@@ -52,12 +58,13 @@ public class GrabDomainMethodController {
 
     /**
      * 根据步骤id查询对应的所有方法
+     *
      * @param request
      * @param grabDomainProcedureId
      * @return
      */
     @RequestMapping(value = "getMethodById", method = RequestMethod.POST)
-    public List<GrabDomainMethodInfo> getMethodById(HttpServletRequest request,int grabDomainProcedureId) {
+    public List<GrabDomainMethodInfo> getMethodById(HttpServletRequest request, int grabDomainProcedureId) {
         return service.getMethodById(grabDomainProcedureId);
     }
 }

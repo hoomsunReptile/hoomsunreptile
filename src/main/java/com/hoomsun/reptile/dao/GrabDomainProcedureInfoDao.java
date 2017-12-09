@@ -6,10 +6,21 @@ import org.apache.ibatis.annotations.*;
 
 import com.hoomsun.reptile.entity.GrabDomainProcedureInfo;
 
+/**
+ * GrabDomainProcedureInfoDao
+ *
+ * @author mrlu
+ * @date 2017/12/9
+ */
 @Mapper
 public interface GrabDomainProcedureInfoDao {
 
 
+    /**
+     *根据基本信息id获取对应的步骤信息
+     * @param grabDomainBasicId
+     * @return  List<GrabDomainProcedureInfo>
+     */
     @Results({
             @Result(property = "id", column = "id"),
             @Result(property = "grabDomainBasicId", column = "grab_domain_basic_id"),
@@ -27,10 +38,13 @@ public interface GrabDomainProcedureInfoDao {
             @Result(property = "backupTxt3", column = "backup_txt3")
     })
 
-
     @Select("SELECT * FROM grab_domain_procedure_info WHERE grab_domain_basic_id = #{grabDomainBasicId} order by grab_domain_procedure_item asc")
     List<GrabDomainProcedureInfo> getProcedureById(int grabDomainBasicId);
 
+    /**
+     * 新增步骤信息
+     * @param procedureInfo
+     */
     @Insert("INSERT INTO grab_domain_procedure_info" +
             "(grab_domain_basic_id, grab_domain_procedure_item, grab_domain_procedure_name, grab_domain_procedure_describe," +
             " grab_domain_procedure_in_param, grab_domain_procedure_out_param_name, grab_domain_procedure_out_param_type, " +
@@ -40,9 +54,17 @@ public interface GrabDomainProcedureInfoDao {
             " #{grabDomainProcedureClazz},#{remark}, #{backupTxt1}, #{backupTxt2},#{backupTxt3})")
     void postNewProcedure(GrabDomainProcedureInfo procedureInfo);
 
+    /**
+     * 根据id删除对应步骤
+     * @param id
+     */
     @Delete("delete from grab_domain_procedure_info where id=#{id}")
     void deleteProcedureById(String id);
 
+    /**
+     * 根据id修改步骤信息
+     * @param procedureInfo
+     */
     @Update("update grab_domain_procedure_info set " +
             "grab_domain_basic_id=#{grabDomainBasicId},grab_domain_procedure_item=#{grabDomainProcedureItem},grab_domain_procedure_name=#{grabDomainProcedureName}," +
             "grab_domain_procedure_describe=#{grabDomainProcedureDescribe},grab_domain_procedure_in_param=#{grabDomainProcedureInParam}," +

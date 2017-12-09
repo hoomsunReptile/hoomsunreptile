@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * GrabDomainProcedureController
+ *
+ * @author mrlu
+ * @date 2017/12/9
+ */
 @Controller
 @RequestMapping("GrabDomainProcedureController")
 public class GrabDomainProcedureController {
@@ -50,6 +56,7 @@ public class GrabDomainProcedureController {
 
     /**
      * 根据模块id查询出所拥有的所有步骤
+     *
      * @param grabDomainBasicId
      * @return
      */

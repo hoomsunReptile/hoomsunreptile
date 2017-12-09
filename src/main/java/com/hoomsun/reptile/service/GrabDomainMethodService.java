@@ -6,9 +6,14 @@ import com.hoomsun.reptile.util.ProductionFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ *GrabDomainMethodService
+ *
+ * @author mrlu
+ * @date 2017/12/9
+ */
 @Service
 public class GrabDomainMethodService {
     @Autowired

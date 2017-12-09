@@ -5,9 +5,14 @@ import com.hoomsun.reptile.entity.GrabDomainBasicInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * GrabDomainBasicService
+ *
+ * @author mrlu
+ * @date 2017/12/9
+ */
 @Service
 public class GrabDomainBasicService {
     @Resource

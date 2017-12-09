@@ -11,9 +11,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 常用方法集合
+ * 常用方法工具类
+ *
+ * @author mrlu
+ * @date 2017/12/9
  */
 public class CommonMethodUtil {
+    private static final String IE_BROWSER="ie";
+    private static final String CHROME_BROWSER="chrome";
+    private static final String BY_ID="id";
+    private static final String BY_CLASSNAME="className";
+    private static final String BY_XPATH="xpath";
 
     /**
      * 用指定的浏览器打开url
@@ -23,14 +31,14 @@ public class CommonMethodUtil {
      * @return
      */
     public static Map<String, Object> openGoalUrl(String browserType, String url) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         InternetExplorerDriver ieDriver = null;
         ChromeDriver chromeDriver = null;
-        if (browserType.equals("ie")) {
+        if (browserType.equals(IE_BROWSER)) {
             System.setProperty(SystemConfig.getProperty("ieDriverKey"), SystemConfig.getProperty("ieDriverValue"));
             ieDriver = new InternetExplorerDriver();
             ieDriver.manage().window().maximize();
-        } else if (browserType.equals("chrome")) {
+        } else if (browserType.equals(CHROME_BROWSER)) {
             System.setProperty(SystemConfig.getProperty("chromeDriverKey"), SystemConfig.getProperty("chromeDriverValue"));
             ChromeOptions options = new ChromeOptions();
             options.addArguments("start-maximized");
@@ -64,17 +72,17 @@ public class CommonMethodUtil {
      * @return
      */
     public static Map<String, Object> inputNamePwd(RemoteWebDriver driver, String userName, String password, String byType, String htmlSignlName, String htmlSignlPwd) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         try {
-            if (byType.equals("id")) {
+            if (byType.equals(BY_ID)) {
                 driver.findElementById(htmlSignlName).sendKeys(userName);
                 Thread.sleep(1000);
                 driver.findElementById(htmlSignlPwd).sendKeys(password);
-            } else if (byType.equals("className")) {
+            } else if (byType.equals(BY_CLASSNAME)) {
                 driver.findElementByClassName(htmlSignlName).sendKeys(userName);
                 Thread.sleep(1000);
                 driver.findElementByClassName(htmlSignlPwd).sendKeys(password);
-            } else if (byType.equals("xPath")) {
+            } else if (byType.equals(BY_XPATH)) {
                 driver.findElementByXPath(htmlSignlName).sendKeys(userName);
                 Thread.sleep(1000);
                 driver.findElementByXPath(htmlSignlPwd).sendKeys(password);

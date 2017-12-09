@@ -12,8 +12,20 @@ import org.apache.ibatis.annotations.Update;
 
 import com.hoomsun.reptile.entity.GrabDomainMethodInfo;
 
+/**
+ * GrabDomainMethodInfoDao
+ *
+ * @author mrlu
+ * @date 2017/12/9
+ */
 @Mapper
 public interface GrabDomainMethodInfoDao {
+
+    /**
+     *查询对应步骤所拥有的方法
+     * @param grabDomainProcedureId
+     * @return  List<GrabDomainMethodInfo>
+     */
     @Results({
             @Result(property = "id", column = "id"),
             @Result(property = "grabDomainBasicId", column = "grab_domain_basic_id"),
@@ -41,7 +53,12 @@ public interface GrabDomainMethodInfoDao {
     @Select("SELECT * FROM grab_domain_method_info WHERE grab_domain_procedure_id = #{grabDomainProcedureId}")
     List<GrabDomainMethodInfo> getMethodById(int grabDomainProcedureId);
 
-    @Insert( "INSERT INTO grab_domain_method_info ( grab_domain_basic_id, grab_domain_procedure_id, method_count_total," +
+    /**
+     * 新增方法
+     * @param info
+     * @return
+     */
+    @Insert("INSERT INTO grab_domain_method_info ( grab_domain_basic_id, grab_domain_procedure_id, method_count_total," +
             "            method_item, method_item_describe, method_name, method_describe, method_in_param," +
             "            method_out_param_name, method_out_param_type, method_body, method_package, method_clazz," +
             "            method_exist_flag, status, remark, backup_txt1, backup_txt2, backup_txt3, method_import_package)" +
@@ -51,9 +68,17 @@ public interface GrabDomainMethodInfoDao {
             "            #{backupTxt3}, #{methodImportPackage})")
     int postNewMethod(GrabDomainMethodInfo info);
 
+    /**
+     * 根据id删除方法
+     * @param id
+     */
     @Delete("DELETE FROM grab_domain_method_info WHERE id=#{id}")
     void deleteMethodById(String id);
 
+    /**
+     * 修改对应的方法信息
+     * @param info
+     */
     @Update("update grab_domain_method_info set " +
             "grab_domain_basic_id=#{grabDomainBasicId},grab_domain_procedure_id= #{grabDomainProcedureId}," +
             "method_count_total=#{methodCountTotal},method_item=#{methodItem}," +

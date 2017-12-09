@@ -7,6 +7,12 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * GrabDomainProcedureService
+ *
+ * @author mrlu
+ * @date 2017/12/9
+ */
 @Service
 public class GrabDomainProcedureService {
 
