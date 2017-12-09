@@ -5,6 +5,7 @@ import com.hoomsun.reptile.entity.GrabDomainProcedureInfo;
 import com.hoomsun.reptile.service.GrabDomainProcedureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -60,7 +61,10 @@ public class GrabDomainProcedureController {
      * @param grabDomainBasicId
      * @return
      */
-    public List<GrabDomainProcedureInfo> getProcedureById(int grabDomainBasicId) {
-        return procedureService.getProcedureById(grabDomainBasicId);
+    @RequestMapping(value = "getProcedureById", method = RequestMethod.GET)
+    public String getProcedureById(HttpServletRequest request, int grabDomainBasicId, Model model) {
+        List<GrabDomainProcedureInfo> procedureById = procedureService.getProcedureById(grabDomainBasicId);
+        model.addAttribute("procedureById",procedureById);
+        return "procedurebybasic";
     }
 }

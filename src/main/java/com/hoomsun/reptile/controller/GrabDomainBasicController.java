@@ -3,8 +3,10 @@ package com.hoomsun.reptile.controller;
 import com.hoomsun.reptile.entity.GrabDomainBasicInfo;
 import com.hoomsun.reptile.service.GrabDomainBasicService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -29,8 +31,9 @@ public class GrabDomainBasicController {
      * @param basicInfo
      */
     @RequestMapping(value = "postNewBasic", method = RequestMethod.POST)
-    public void postNewBasic(HttpServletRequest request, GrabDomainBasicInfo basicInfo) {
+    public String postNewBasic(HttpServletRequest request, GrabDomainBasicInfo basicInfo) {
         service.postNewBasic(basicInfo);
+        return "redirect:getAllBasic";
     }
 
     /**
@@ -73,8 +76,10 @@ public class GrabDomainBasicController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "getAllBasic", method = RequestMethod.POST)
-    public List<GrabDomainBasicInfo> getAllBasic(HttpServletRequest request) {
-        return service.getAllBasic();
+    @RequestMapping(value = "getAllBasic", method = RequestMethod.GET)
+    public String getAllBasic(HttpServletRequest request ,Model model) {
+        List<GrabDomainBasicInfo> allBasic = service.getAllBasic();
+        model.addAttribute("allBasicInfo",allBasic);
+        return "putmenu";
     }
 }

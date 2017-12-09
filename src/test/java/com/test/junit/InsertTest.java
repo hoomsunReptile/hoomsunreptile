@@ -7,7 +7,6 @@ import com.hoomsun.reptile.main.StartApp;
 import com.hoomsun.reptile.service.GrabDomainBasicService;
 import com.hoomsun.reptile.service.GrabDomainMethodService;
 import com.hoomsun.reptile.service.GrabDomainProcedureService;
-import com.hoomsun.reptile.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,8 +25,7 @@ import java.util.List;
 @SpringBootTest(classes = StartApp.class)
 @WebAppConfiguration
 public class InsertTest {
-    @Resource
-    private UserService userServices;
+
     @Resource
     GrabDomainMethodService methodController;
     @Resource
@@ -35,12 +33,7 @@ public class InsertTest {
 
     @Resource
     GrabDomainBasicService basicService;
-    @Test
-    public void test() {
-        		System.out.println("asdas");
-		userServices.insert("2132",18);
-		System.out.println("成功");
-    }
+
 
     @Test
     public void test1() {

@@ -115,7 +115,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
             <div class="row">
                 <div class="col-md-5">
-                    <h1 class="page-header">新增数据采集模块</h1>
+                    <h1 class="page-header"><label th:text="123"></label></h1>
                     <form action="/GrabDomainBasicController/postNewBasic" method="post" autocomplete="off">
                         <div class="form-group custom">
                             <label for="grabDomainCnDescribe">数据采集名称（CN）</label>
@@ -166,46 +166,46 @@
                         <button class="btn btn-primary" type="submit" name="submit">添加新模块</button>
                     </form>
                 </div>
-                <div class="col-md-7">
+
                     <h1 class="page-header">管理 <span class="badge">3</span></h1>
-                    <div class="table-responsive">
+
                         <table class="table table-striped table-hover">
                             <thead>
                             <tr>
-                                <th><span class="glyphicon glyphicon-paperclip"></span> <span
-                                        class="visible-lg">ID</span></th>
-                                <th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">名称</span>
-                                </th>
-                                <th><span class="glyphicon glyphicon-list-alt"></span> <span
-                                        class="visible-lg">别名</span></th>
-                                <th><span class="glyphicon glyphicon-pushpin"></span> <span
-                                        class="visible-lg">访问域名</span></th>
-                                <th><span class="glyphicon glyphicon-pencil"></span> <span class="visible-lg">控件</span>
-                                </th>
-                                <th><span class="glyphicon glyphicon-pencil"></span> <span
-                                        class="visible-lg">模拟键盘</span></th>
-                                <th><span class="glyphicon glyphicon-pencil"></span> <span class="visible-lg">参数</span>
-                                </th>
-                                <th><span class="glyphicon glyphicon-pencil"></span> <span class="visible-lg">操作</span>
-                                </th>
+                                <th><span class="glyphicon "></span> <span class="visible-lg">ID</span></th>
+                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域基本信息id</span></th>
+                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域步骤</span></th>
+                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法名称</span></th>
+                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法描述</span></th>
+                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法入参</span></th>
+                                <th><span class="glyphicon"></span> <span class="visible-lg">抓取域方法出参名</span></th>
+                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法出参类型</span></th>
+                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法所在包名</span></th>
+                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法所在类名</span></th>
+                                <th><span class="glyphicon "></span> <span class="visible-lg">备注</span></th>
+                                <th><span class="glyphicon "></span> <span class="visible-lg">操作</span></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="methodList : ${allBasicInfo}">
-                                <td th:text="${methodList.id}">1</td>
-                                <td th:text="${methodList.grabDomainCnDescribe}">前端技术</td>
-                                <td th:text="${methodList.grabDomainEnDescribe}">web</td>
-                                <td th:text="${methodList.grabDomainLoginAddress}">125</td>
-                                <td th:text="${methodList.controlFlag}">前端技术</td>
-                                <td th:text="${methodList.keyboardFlag}">web</td>
-                                <td th:text="${methodList.loginInParam}">125</td>
-                                <td ><a th:href="@{/GrabDomainProcedureController/getProcedureById(grabDomainBasicId=${methodList.id})}">编辑</a> <a rel="1">删除</a></td>
+                            <tr th:each="procedureList : ${procedureById}">
+                                <td th:text="${procedureList.id}">1</td>
+                                <td th:text="${procedureList.grabDomainBasicId}">前端技术</td>
+                                <td th:text="${procedureList.grabDomainProcedureItem}">web</td>
+                                <td th:text="${procedureList.grabDomainProcedureName}">125</td>
+                                <td th:text="${procedureList.grabDomainProcedureDescribe}">前端技术</td>
+                                <td th:text="${procedureList.grabDomainProcedureInParam}">web</td>
+                                <td th:text="${procedureList.grabDomainProcedureOutParamName}">125</td>
+                                <td th:text="${procedureList.grabDomainProcedureOutParamType}">125</td>
+                                <td th:text="${procedureList.grabDomainProcedurePackage}">125</td>
+                                <td th:text="${procedureList.grabDomainProcedureClazz}">125</td>
+                                <td th:text="${procedureList.remark}">125</td>
+                                <td ><a th:href="@{/GrabDomainProcedureController/getProcedureById(grabDomainBasicId=${procedureList.id})}">编辑</a> <a rel="1">删除</a></td>
                             </tr>
 
                             </tbody>
                         </table>
-                        <span class="prompt-text"><strong>注：</strong>删除一个栏目也会删除栏目下的文章和子栏目,请谨慎删除!</span></div>
-                </div>
+                        <span class="prompt-text"><strong>注：</strong>删除一个栏目也会删除栏目下的文章和子栏目,请谨慎删除!</span>
+
 
             </div>
         </div>
