@@ -1,8 +1,10 @@
 package com.test.junit;
 
+import com.hoomsun.reptile.entity.GrabDomainBasicInfo;
 import com.hoomsun.reptile.entity.GrabDomainMethodInfo;
 import com.hoomsun.reptile.entity.GrabDomainProcedureInfo;
 import com.hoomsun.reptile.main.StartApp;
+import com.hoomsun.reptile.service.GrabDomainBasicService;
 import com.hoomsun.reptile.service.GrabDomainMethodService;
 import com.hoomsun.reptile.service.GrabDomainProcedureService;
 import com.hoomsun.reptile.service.UserService;
@@ -31,6 +33,8 @@ public class InsertTest {
     @Resource
     GrabDomainProcedureService service;
 
+    @Resource
+    GrabDomainBasicService basicService;
     @Test
     public void test() {
         		System.out.println("asdas");
@@ -92,6 +96,40 @@ public class InsertTest {
     public  void  getProcedure(){
         List<GrabDomainProcedureInfo> procedureById = service.getProcedureById(1);
         System.out.println(procedureById);
+    }
+    @Test
+    public void postBasic(){
+        GrabDomainBasicInfo basicInfo=new GrabDomainBasicInfo();
+        basicInfo.setGrabDomainCnDescribe("路党伟");
+        basicInfo.setGrabDomainEnDescribe("ludnagwei");
+        basicInfo.setRemark("周六过来加班了");
+        basicService.postNewBasic(basicInfo);
+    }
+    @Test
+    public void deleteBasic(){
+        basicService.deleteBasicById("1");
+    }
+
+    @Test
+    public void putBasic(){
+        GrabDomainBasicInfo basicInfo=new GrabDomainBasicInfo();
+        basicInfo.setId(4);
+        basicInfo.setRemark("今天天气不错");
+        basicInfo.setGrabDomainEnDescribe("today is a good");
+        basicInfo.setGrabDomainCnDescribe("星期六");
+        basicInfo.setBackupTxt1("hehedadadadadad");
+        basicService.putBasicById(basicInfo);
+    }
+
+    @Test
+    public void getBasicById(){
+        GrabDomainBasicInfo basicById = basicService.getBasicById("2");
+    }
+
+    @Test
+    public void getAllBasic(){
+        List<GrabDomainBasicInfo> allBasic = basicService.getAllBasic();
+
     }
 
 }
