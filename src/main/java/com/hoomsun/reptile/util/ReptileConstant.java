@@ -17,11 +17,17 @@ public class ReptileConstant {
 	public static final String METHOD_TYPE_JSONARRAY = "jsonArray";
 	
 	public static final String YES = "1";
-	public static final String NO = "2";
+	public static final String NO = "0";
 	
 	public static final String POINT = ".";
 	public static final String CLASS_PACKAGE_INFO = "com.hoomsun.reptile.classLoader";
 	public static final String CLASS_PACKAGE_INFO_A = "com/hoomsun/reptile/classLoader/";
+	
+	public static final String BACKUPTXT1 = "backupTxt1";//备用字段1
+	public static final String BACKUPTXT2 = "backupTxt2";//备用字段2
+	public static final String BACKUPTXT3 = "backupTxt3";//备用字段3
+	
+	public static final String BROWSER_TYPE = "browserType";//浏览器类型
 	
 	/**
 	 * 获取包名+类名
