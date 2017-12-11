@@ -4,6 +4,7 @@ import com.hoomsun.reptile.entity.GrabDomainMethodInfo;
 import com.hoomsun.reptile.service.GrabDomainMethodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -30,8 +31,9 @@ public class GrabDomainMethodController {
      * @param methodDao
      */
     @RequestMapping(value = "postNewMethod", method = RequestMethod.POST)
-    public void postNewMethod(HttpServletRequest request, GrabDomainMethodInfo methodDao) {
+    public String postNewMethod(HttpServletRequest request, GrabDomainMethodInfo methodDao) {
         service.postNewMethod(methodDao);
+        return "redirect:getMethodById?grabDomainProcedureId="+methodDao.getGrabDomainProcedureId();
     }
 
     /**
@@ -63,8 +65,11 @@ public class GrabDomainMethodController {
      * @param grabDomainProcedureId
      * @return
      */
-    @RequestMapping(value = "getMethodById", method = RequestMethod.POST)
-    public List<GrabDomainMethodInfo> getMethodById(HttpServletRequest request, int grabDomainProcedureId) {
-        return service.getMethodById(grabDomainProcedureId);
+    @RequestMapping(value = "getMethodById", method = RequestMethod.GET)
+    public String getMethodById(HttpServletRequest request, int grabDomainProcedureId, Model model) {
+        List<GrabDomainMethodInfo> methodById = service.getMethodById(grabDomainProcedureId);
+        model.addAttribute("grabDomainProcedureId",grabDomainProcedureId);
+        model.addAttribute("methodInfoList",methodById);
+        return "methodbyprocedure";
     }
 }

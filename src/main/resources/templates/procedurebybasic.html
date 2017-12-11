@@ -113,100 +113,119 @@
             </ul>
         </aside>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
+            <table border="1px solid #cccccc" style="text-align: center">
+                <thead>
+                <tr>
+                    <th><span class="glyphicon "></span> <span class="visible-lg">ID</span></th>
+                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域基本信息id</span></th>
+                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域步骤</span></th>
+                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法名称</span></th>
+                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法描述</span></th>
+                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法入参</span></th>
+                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法出参名</span></th>
+                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法出参类型</span></th>
+                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法所在包名</span></th>
+                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法所在类名</span></th>
+                    <th><span class="glyphicon "></span> <span class="visible-lg">备注</span></th>
+                    <th><span class="glyphicon "></span> <span class="visible-lg">操作</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="procedureList : ${procedureById}">
+                    <td th:text="${procedureList.id}">1</td>
+                    <td th:text="${procedureList.grabDomainBasicId}">前端技术</td>
+                    <td th:text="${procedureList.grabDomainProcedureItem}">web</td>
+                    <td th:text="${procedureList.grabDomainProcedureName}">125</td>
+                    <td th:text="${procedureList.grabDomainProcedureDescribe}">前端技术</td>
+                    <td th:text="${procedureList.grabDomainProcedureInParam}">web</td>
+                    <td th:text="${procedureList.grabDomainProcedureOutParamName}">125</td>
+                    <td th:text="${procedureList.grabDomainProcedureOutParamType}">125</td>
+                    <td th:text="${procedureList.grabDomainProcedurePackage}">125</td>
+                    <td th:text="${procedureList.grabDomainProcedureClazz}">125</td>
+                    <td th:text="${procedureList.remark}">125</td>
+                    <td ><a th:href="@{/GrabDomainMethodController/getMethodById(grabDomainProcedureId=${procedureList.id})}">编辑</a> <a rel="1">删除</a></td>
+                </tr>
+
+                </tbody>
+            </table>
             <div class="row">
                 <div class="col-md-5">
                     <h1 class="page-header"><label th:text="123"></label></h1>
-                    <form action="/GrabDomainBasicController/postNewBasic" method="post" autocomplete="off">
+                    <form action="/GrabDomainProcedureController/postNewProcedure" method="post" autocomplete="off">
                         <div class="form-group custom">
-                            <label for="grabDomainCnDescribe">数据采集名称（CN）</label>
-                            <input type="text" id="grabDomainCnDescribe" name="grabDomainCnDescribe" class="form-control"
-                                   placeholder="" required="required" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="grabDomainEnDescribe">数据采集名称（EN）</label>
-                            <input type="text" id="grabDomainEnDescribe" name="grabDomainEnDescribe" class="form-control"
-                                   placeholder="" required="required" autocomplete="off"/>
+                            <label for="grabDomainBasicId">抓取域基本信息id</label>
+                            <input type="text" id="grabDomainBasicId" name="grabDomainBasicId" class="form-control"
+                                    th:value="${grabDomainBasicId}" readonly="readonly"/>
                             <span class="prompt-text"></span></div>
                         <div class="form-group custom">
-                            <label for="grabDomainProcedureTotal">抓取域步骤总数</label>
-                            <input type="text" id="grabDomainProcedureTotal" name="grabDomainProcedureTotal" class="form-control"
-                                   placeholder="" required="required" autocomplete="off"/>
+                            <label for="grabDomainProcedureItem">抓取域步骤</label>
+                            <input type="text" id="grabDomainProcedureItem" name="grabDomainProcedureItem" class="form-control"
+                                   placeholder=""  autocomplete="off"/>
                             <span class="prompt-text"></span></div>
                         <div class="form-group custom">
-                            <label for="grabDomainLoginAddress">数据采集访问域名</label>
-                            <input type="text" id="grabDomainLoginAddress" name="grabDomainLoginAddress"
-                                   class="form-control"
-                                   placeholder="" required="required" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label>控件定位</label>
-                            <br/>
-                            <input type="radio" id="controlFlagT" name="controlFlag"
-                                   class="form-control" value="1" checked="checked"/>true
-                            <input type="radio" id="controlFlagF" name="controlFlag"
-                                   class="form-control" value="0"/>false
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label>模拟键盘输入</label>
-                            <br/>
-                            <input type="radio" id="keyboardFlagT" name="keyboardFlag" class="form-control" checked="checked"
-                                   value="1"/>true
-                            <input type="radio" id="keyboardFlagF" name="keyboardFlag" class="form-control" value="0"/>false
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label for="loginInParam">参数</label>
-                            <input type="text" id="loginInParam" name="loginInParam" class="form-control"
+                            <label for="grabDomainProcedureName">抓取域方法名称</label>
+                            <input type="text" id="grabDomainProcedureName" name="grabDomainProcedureName" class="form-control"
                                    placeholder="" autocomplete="off"/>
                             <span class="prompt-text"></span></div>
+                        <div class="form-group custom">
+                            <label for="grabDomainProcedureDescribe">抓取域方法描述</label>
+                            <input type="text" id="grabDomainProcedureDescribe" name="grabDomainProcedureDescribe"
+                                   class="form-control"
+                                   placeholder="" autocomplete="off"/>
+                            <span class="prompt-text"></span></div>
+                        <div class="form-group custom">
+                            <label for="grabDomainProcedureInParam">抓取域方法入参</label>
+                            <input type="text" id="grabDomainProcedureInParam" name="grabDomainProcedureInParam"
+                                   class="form-control"
+                                   placeholder=""  autocomplete="off"/>
+                            <span class="prompt-text"></span></div>
+                        <div class="form-group custom">
+                            <label for="grabDomainProcedureOutParamType">抓取域方法出参类型</label>
+                            <input type="text" id="grabDomainProcedureOutParamType" name="grabDomainProcedureOutParamType"
+                                   class="form-control"
+                                   placeholder=""  autocomplete="off"/>
+                            <span class="prompt-text"></span></div>
+                        <div class="form-group custom">
+                            <label for="grabDomainProcedureOutParamName">抓取域方法出参名</label>
+                            <input type="text" id="grabDomainProcedureOutParamName" name="grabDomainProcedureOutParamName"
+                                   class="form-control"
+                                   placeholder=""  autocomplete="off"/>
+                            <span class="prompt-text"></span></div>
+                        <div class="form-group custom">
+                            <label for="grabDomainProcedurePackage">抓取域方法所在包名</label>
+                            <input type="text" id="grabDomainProcedurePackage" name="grabDomainProcedurePackage"
+                                   class="form-control"
+                                   placeholder=""  autocomplete="off"/>
+                            <span class="prompt-text"></span></div>
+                        <div class="form-group custom">
+                            <label for="grabDomainProcedureClazz">抓取域方法所在类名</label>
+                            <input type="text" id="grabDomainProcedureClazz" name="grabDomainProcedureClazz"
+                                   class="form-control"
+                                   placeholder=""  autocomplete="off"/>
+                            <span class="prompt-text"></span></div>
                         <div class="form-group">
-                            <label for="remark">概括</label>
+                            <label for="remark">备注</label>
                             <textarea class="form-control" id="remark" name="remark" rows="4"
                                       autocomplete="off"></textarea>
                             <span class="prompt-text">新增模块功能概述</span></div>
-                        <button class="btn btn-primary" type="submit" name="submit">添加新模块</button>
+                        <div class="form-group">
+                            <label for="remark">备用1</label>
+                            <input type="text" id="backupTxt1" name="backupTxt1" class="form-control"
+                                   placeholder="" autocomplete="off"/>
+                            <span class="prompt-text"></span></div>
+                        <div class="form-group">
+                            <label for="remark">备用2</label>
+                            <input type="text" id="backupTxt2" name="backupTxt2" class="form-control"
+                                   placeholder="" autocomplete="off"/>
+                            <span class="prompt-text"></span></div>
+                        <div class="form-group">
+                            <label for="remark">备用3</label>
+                            <input type="text" id="backupTxt3" name="backupTxt3" class="form-control"
+                                   placeholder="" autocomplete="off"/>
+                            <span class="prompt-text"></span></div>
+                        <button class="btn btn-primary" type="submit" name="submit">添加新步骤</button>
                     </form>
                 </div>
-
-                    <h1 class="page-header">管理 <span class="badge">3</span></h1>
-
-                        <table class="table table-striped table-hover">
-                            <thead>
-                            <tr>
-                                <th><span class="glyphicon "></span> <span class="visible-lg">ID</span></th>
-                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域基本信息id</span></th>
-                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域步骤</span></th>
-                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法名称</span></th>
-                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法描述</span></th>
-                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法入参</span></th>
-                                <th><span class="glyphicon"></span> <span class="visible-lg">抓取域方法出参名</span></th>
-                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法出参类型</span></th>
-                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法所在包名</span></th>
-                                <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法所在类名</span></th>
-                                <th><span class="glyphicon "></span> <span class="visible-lg">备注</span></th>
-                                <th><span class="glyphicon "></span> <span class="visible-lg">操作</span></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="procedureList : ${procedureById}">
-                                <td th:text="${procedureList.id}">1</td>
-                                <td th:text="${procedureList.grabDomainBasicId}">前端技术</td>
-                                <td th:text="${procedureList.grabDomainProcedureItem}">web</td>
-                                <td th:text="${procedureList.grabDomainProcedureName}">125</td>
-                                <td th:text="${procedureList.grabDomainProcedureDescribe}">前端技术</td>
-                                <td th:text="${procedureList.grabDomainProcedureInParam}">web</td>
-                                <td th:text="${procedureList.grabDomainProcedureOutParamName}">125</td>
-                                <td th:text="${procedureList.grabDomainProcedureOutParamType}">125</td>
-                                <td th:text="${procedureList.grabDomainProcedurePackage}">125</td>
-                                <td th:text="${procedureList.grabDomainProcedureClazz}">125</td>
-                                <td th:text="${procedureList.remark}">125</td>
-                                <td ><a th:href="@{/GrabDomainProcedureController/getProcedureById(grabDomainBasicId=${procedureList.id})}">编辑</a> <a rel="1">删除</a></td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                        <span class="prompt-text"><strong>注：</strong>删除一个栏目也会删除栏目下的文章和子栏目,请谨慎删除!</span>
-
-
             </div>
         </div>
     </div>

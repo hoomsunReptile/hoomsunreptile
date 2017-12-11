@@ -31,8 +31,9 @@ public class GrabDomainProcedureController {
      * @param procedureInfo
      */
     @RequestMapping(value = "postNewProcedure", method = RequestMethod.POST)
-    public void postNewProcedure(GrabDomainProcedureInfo procedureInfo) {
+    public String postNewProcedure(GrabDomainProcedureInfo procedureInfo) {
         procedureService.postNewProcedure(procedureInfo);
+        return "redirect:getProcedureById?grabDomainBasicId="+procedureInfo.getGrabDomainBasicId();
     }
 
     /**
@@ -64,6 +65,7 @@ public class GrabDomainProcedureController {
     @RequestMapping(value = "getProcedureById", method = RequestMethod.GET)
     public String getProcedureById(HttpServletRequest request, int grabDomainBasicId, Model model) {
         List<GrabDomainProcedureInfo> procedureById = procedureService.getProcedureById(grabDomainBasicId);
+        model.addAttribute("grabDomainBasicId",grabDomainBasicId);
         model.addAttribute("procedureById",procedureById);
         return "procedurebybasic";
     }
