@@ -17,10 +17,18 @@ import com.hoomsun.reptile.entity.GrabDomainMethodInfo;
 import com.hoomsun.reptile.entity.GrabDomainProcedureInfo;
 import com.hoomsun.reptile.util.ReptileConstant;
 
+/**
+ * 爬虫公共service层
+ * @ClassName: ReptileService  
+ * @Description: 爬虫公共service层
+ * @author: xuesongcui
+ * @date 2017年12月11日  
+ *
+ */
 @Service
-public class LoginService {
+public class ReptileService {
 	
-	private static Logger logger= LoggerFactory.getLogger(LoginService.class);
+	private static Logger logger= LoggerFactory.getLogger(ReptileService.class);
 	
 	  
 	@Autowired
@@ -30,8 +38,16 @@ public class LoginService {
 	@Autowired
 	private GrabDomainProcedureInfoDao procedureInfoDao;
 
-	public Map<String,Object> doLogin(String type, Map<String,Object> params){
-    	logger.warn("------------爬虫开始-----------模板id:"+type+";请求参数:"+params);
+	
+	 /**
+     * 爬虫请求入口
+     * @param type 模板ID，即为抓取域基本信息中的英文描述
+     * @param step 第几步，该字段存储在抓取域步骤中的grabDomainProcedureItem字段中
+     * @param map 请求入参
+     * @return
+     */
+	public Map<String,Object> doRequest(String type,String step, Map<String,Object> params){
+    	logger.warn("------------爬虫开始-----------模板id:"+type+";请求参数:"+params+"----------------");
 		Map<String,Object> data = new HashMap<String, Object>();
 		try {
 			//根据type查询basic表，basic表备用字段1为浏览器类型
@@ -43,19 +59,20 @@ public class LoginService {
 				
 				if(procedures != null && procedures.size() > 0){
 					
-					//list的第一条数据为登录方法
-					GrabDomainProcedureInfo procedureInfo = procedures.get(0);
-					//查询登录方法需要调用的具体方法
+					int i = Integer.parseInt(step) - 1;
+					
+					//获取list中的第n条数据
+					GrabDomainProcedureInfo procedureInfo = procedures.get(i);
+					//查询需要调用的具体方法
 					List<GrabDomainMethodInfo> methods = methodInfoDao.getMethodById(procedureInfo.getId());
 					//入参类型
 					for (GrabDomainMethodInfo item:methods) {
 							params.put("backupTxt1", item.getBackupTxt1());//方法中需要的一些常量可以放在该字段中。
 							Class<?> clazz = null;
-							//MethodExistFlag为1时，该方法在项目中存在；MethodExistFlag为2时，该方法为动态加载类，动态加载类放在com.hoomsun.reptile.classLoader包下
+							//MethodExistFlag为1时，该方法在项目中存在；MethodExistFlag为0时，该方法为动态加载类，动态加载类放在com.hoomsun.reptile.classLoader包下
 							if((ReptileConstant.NO).equals(item.getMethodExistFlag())){
 								item.setMethodPackage(ReptileConstant.CLASS_PACKAGE_INFO);
 							}
-							System.err.println(item.getMethodPackage());
 							
 							try {
 								//加载类
