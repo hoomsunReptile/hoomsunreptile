@@ -10,14 +10,11 @@ package com.hoomsun.reptile.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
-
 import org.apache.log4j.Logger;
-
 import com.hoomsun.reptile.entity.GrabDomainMethodInfo;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
-import javassist.Modifier;
 
 /**
  * @ClassName: ProductionFunction
@@ -33,39 +30,78 @@ public class ProductionFunction {
 		try {
 
 			ClassPool pool = ClassPool.getDefault();
-			// 通过ClassPool生成一个public新类Emp.java
+			// 新类Emp.java
 			/* 类头部到引用 */
 			String className = ReptileConstant.getProductPath(grabDomainMethodInfo.getMethodClazz());
 			CtClass ctClass = pool.makeClass(className);
 			/* 引入包名 多个 */
 			String packageName = grabDomainMethodInfo.getMethodImportPackage();
 			/* 解析 */
-			String arrayPackage[] = packageName.split(",");
+			String[] arrayPackage = packageName.split(",");
 
 			/* 批量引入 */
 			for (int i = 0; i < arrayPackage.length; i++) {
 				pool.importPackage(arrayPackage[i]);
 			}
+			StringBuffer buffer = new StringBuffer();
 
-			// //添加自定义方法 此处传入方法名
-			CtMethod ctMethod = new CtMethod(CtClass.voidType, grabDomainMethodInfo.getMethodName(),
-					new CtClass[] {}, ctClass);
-			// //为自定义方法设置修饰符
-			ctMethod.setModifiers(Modifier.PUBLIC);
-			// //为自定义方法设置函数体
-			StringBuffer buffer2 = new StringBuffer();
+			/* 判断方法修饰符 */
+			if ("public".equals(grabDomainMethodInfo.getBackupTxt1())) {
+				// //为自定义方法设置修饰符
+				buffer.append("public ");
+			} else if ("private".equals(grabDomainMethodInfo.getBackupTxt1())) {
+				buffer.append("private ");
+			} else {
+				logger.error("failed! 未配置当前修饰符");
+				return false;
+			}
 
-			// 为自定义方法设置函数体 (动态参数设置方法体)
-			buffer2.append(grabDomainMethodInfo.getMethodBody());
-			ctMethod.setBody(buffer2.toString());
-			ctClass.addMethod(ctMethod);
+			/* 判断是否静态 */
+			if ("yes".equals(grabDomainMethodInfo.getBackupTxt2())) {
+				buffer.append("static ");
+			}
 
+			/* 设置方法的出参 返回值 以及 是否静态 */
+
+			if (grabDomainMethodInfo.getMethodOutParamType().equals(ReptileConstant.METHOD_TYPE_VOID)) {
+				buffer.append("void ");
+			} else if (grabDomainMethodInfo.getMethodOutParamType().equals(ReptileConstant.METHOD_TYPE_INT)) {
+				buffer.append("int ");
+			} else if (grabDomainMethodInfo.getMethodOutParamType().equals(ReptileConstant.METHOD_TYPE_BOOLEAN)) {
+				buffer.append("boolen ");
+			} else if (grabDomainMethodInfo.getMethodOutParamType().equals(ReptileConstant.METHOD_TYPE_STRING)) {
+				buffer.append("String ");
+			} else if (grabDomainMethodInfo.getMethodOutParamType().equals(ReptileConstant.METHOD_TYPE_MAP)) {
+				buffer.append("Map<String,Object> ");
+			} else if (grabDomainMethodInfo.getMethodOutParamType().equals("list")) {
+				buffer.append("List<?> ");
+			} else {
+				logger.error("failed!出参错误");
+				return false;
+			}
+			String oo = " (Map map)";
+			/* 设置方法名 */
+			buffer.append(grabDomainMethodInfo.getMethodName() + oo);
+			/* 设置方法体 */
+			buffer.append("{");
+			buffer.append(grabDomainMethodInfo.getMethodBody());
+			/**
+			 * 是否有返回值
+			 */
+			if (grabDomainMethodInfo.getMethodOutParamType().equals(ReptileConstant.METHOD_TYPE_VOID)) {
+				buffer.append("}");
+			} else {
+				buffer.append("return " + grabDomainMethodInfo.getMethodOutParamName() + ";}");
+			}
+
+			CtMethod m1 = CtMethod.make(buffer.toString(), ctClass);
+			ctClass.addMethod(m1);
 			// 把生成的类文件写入文件
 			FileOutputStream fos;
 			byte[] byteArr = ctClass.toBytecode();
 
-			fos = new FileOutputStream(new File(ReptileConstant.getProductAbsolutePath()
-					+ grabDomainMethodInfo.getMethodClazz() + ".class"));
+			fos = new FileOutputStream(new File(
+					ReptileConstant.getProductAbsolutePath() + grabDomainMethodInfo.getMethodClazz() + ".class"));
 
 			fos.write(byteArr);
 			fos.close();
@@ -76,19 +112,6 @@ public class ProductionFunction {
 		}
 		return true;
 
-	}
-
-	public static void main(String[] args) throws Exception {
-//		GrabDomainMethodInfo basicInfo = new GrabDomainMethodInfo();
-//
-//		basicInfo.setMethodClazz("TestTwo");
-//		basicInfo.setMethodBody("{System.out.println(1);}");
-//		basicInfo.setMethodName("test");
-//		basicInfo.setMethodImportPackage("com.test,com.test.util");
-//		System.out.println(Addmehod(basicInfo));
-		ClassPool pool = ClassPool.getDefault();
-		CtClass ctClass = pool.get(ReptileConstant.getProductPath("TestTwo"));
-		System.out.println(ctClass.getMethods().toString());;
 	}
 
 }
