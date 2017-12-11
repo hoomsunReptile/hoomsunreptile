@@ -29,6 +29,13 @@
     .row {
         margin-left: 25px;
     }
+    .table{
+        width: 110%;
+        max-width: 110%;
+    }
+    th{
+        text-align: center;
+    }
 </style>
 
 <body class="user-select">
@@ -113,21 +120,22 @@
             </ul>
         </aside>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
-            <table border="1px solid #cccccc" style="text-align: center">
+            <div style="overflow-x: scroll">
+            <table style="text-align: center" class="table">
                 <thead>
                 <tr>
-                    <th><span class="glyphicon "></span> <span class="visible-lg">ID</span></th>
-                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域基本信息id</span></th>
-                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域步骤</span></th>
-                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法名称</span></th>
-                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法描述</span></th>
-                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法入参</span></th>
-                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法出参名</span></th>
-                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法出参类型</span></th>
-                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法所在包名</span></th>
-                    <th><span class="glyphicon "></span> <span class="visible-lg">抓取域方法所在类名</span></th>
-                    <th><span class="glyphicon "></span> <span class="visible-lg">备注</span></th>
-                    <th><span class="glyphicon "></span> <span class="visible-lg">操作</span></th>
+                    <th> <span class="visible-lg">ID</span></th>
+                    <th> <span class="visible-lg">抓取域基本信息id</span></th>
+                    <th><span class="visible-lg">抓取域步骤</span></th>
+                    <th> <span class="visible-lg">抓取域方法名称</span></th>
+                    <th><span class="visible-lg">抓取域方法描述</span></th>
+                    <th> <span class="visible-lg">抓取域方法入参</span></th>
+                    <th><span class="visible-lg">抓取域方法出参名</span></th>
+                    <th> <span class="visible-lg">抓取域方法出参类型</span></th>
+                    <th> <span class="visible-lg">抓取域方法所在包名</span></th>
+                    <th><span class="visible-lg">抓取域方法所在类名</span></th>
+                    <th><span class="visible-lg">备注</span></th>
+                    <th><span class="visible-lg">操作</span></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -148,9 +156,10 @@
 
                 </tbody>
             </table>
+            </div>
             <div class="row">
                 <div class="col-md-5">
-                    <h1 class="page-header"><label th:text="123"></label></h1>
+                    <h1 class="page-header"><label th:text="新增步骤"></label></h1>
                     <form action="/GrabDomainProcedureController/postNewProcedure" method="post" autocomplete="off">
                         <div class="form-group custom">
                             <label for="grabDomainBasicId">抓取域基本信息id</label>
