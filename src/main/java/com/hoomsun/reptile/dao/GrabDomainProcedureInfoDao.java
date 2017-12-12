@@ -38,8 +38,38 @@ public interface GrabDomainProcedureInfoDao {
             @Result(property = "backupTxt3", column = "backup_txt3")
     })
 
-    @Select("SELECT * FROM grab_domain_procedure_info WHERE grab_domain_basic_id = #{grabDomainBasicId} order by grab_domain_procedure_item asc")
+    @Select("SELECT ID, GRAB_DOMAIN_BASIC_ID,GRAB_DOMAIN_PROCEDURE_ITEM,GRAB_DOMAIN_PROCEDURE_NAME,GRAB_DOMAIN_PROCEDURE_DESCRIBE,"
+    		+ "GRAB_DOMAIN_PROCEDURE_IN_PARAM,GRAB_DOMAIN_PROCEDURE_OUT_PARAM_NAME,GRAB_DOMAIN_PROCEDURE_OUT_PARAM_TYPE,"
+    		+ "GRAB_DOMAIN_PROCEDURE_PACKAGE,GRAB_DOMAIN_PROCEDURE_CLAZZ,REMARK,BACKUP_TXT1,BACKUP_TXT2,BACKUP_TXT3 "
+    		+ "FROM GRAB_DOMAIN_PROCEDURE_INFO  "
+    		+ "WHERE GRAB_DOMAIN_BASIC_ID = #{grabDomainBasicId} "
+    		+ "ORDER BY GRAB_DOMAIN_PROCEDURE_ITEM ASC")
     List<GrabDomainProcedureInfo> getProcedureById(int grabDomainBasicId);
+    
+    
+    @Results({
+        @Result(property = "id", column = "id"),
+        @Result(property = "grabDomainBasicId", column = "grab_domain_basic_id"),
+        @Result(property = "grabDomainProcedureItem", column = "grab_domain_procedure_item"),
+        @Result(property = "grabDomainProcedureName", column = "grab_domain_procedure_name"),
+        @Result(property = "grabDomainProcedureDescribe", column = "grab_domain_procedure_describe"),
+        @Result(property = "grabDomainProcedureInParam", column = "grab_domain_procedure_in_param"),
+        @Result(property = "grabDomainProcedureOutParamName", column = "grab_domain_procedure_out_param_name"),
+        @Result(property = "grabDomainProcedureOutParamType", column = "grab_domain_procedure_out_param_type"),
+        @Result(property = "grabDomainProcedurePackage", column = "grab_domain_procedure_package"),
+        @Result(property = "grabDomainProcedureClazz", column = "grab_domain_procedure_clazz"),
+        @Result(property = "remark", column = "remark"),
+        @Result(property = "backupTxt1", column = "backup_txt1"),
+        @Result(property = "backupTxt2", column = "backup_txt2"),
+        @Result(property = "backupTxt3", column = "backup_txt3")
+    })
+    @Select("SELECT ID, GRAB_DOMAIN_BASIC_ID,GRAB_DOMAIN_PROCEDURE_ITEM,GRAB_DOMAIN_PROCEDURE_NAME,GRAB_DOMAIN_PROCEDURE_DESCRIBE,"
+    		+ "GRAB_DOMAIN_PROCEDURE_IN_PARAM,GRAB_DOMAIN_PROCEDURE_OUT_PARAM_NAME,GRAB_DOMAIN_PROCEDURE_OUT_PARAM_TYPE,"
+    		+ "GRAB_DOMAIN_PROCEDURE_PACKAGE,GRAB_DOMAIN_PROCEDURE_CLAZZ,REMARK,BACKUP_TXT1,BACKUP_TXT2,BACKUP_TXT3 "
+    		+ "FROM GRAB_DOMAIN_PROCEDURE_INFO "
+    		+ "WHERE GRAB_DOMAIN_BASIC_ID = #{grabDomainBasicId} "
+    		+ "AND GRAB_DOMAIN_PROCEDURE_ITEM = #{grabDomainProcedureItem}  ORDER BY GRAB_DOMAIN_PROCEDURE_ITEM ASC LIMIT 1")
+    GrabDomainProcedureInfo getProcedureByBasicId(@Param("grabDomainBasicId")int grabDomainBasicId,@Param("grabDomainProcedureItem")int grabDomainProcedureItem);
 
     /**
      * 新增步骤信息
@@ -47,7 +77,7 @@ public interface GrabDomainProcedureInfoDao {
      */
     @Insert("INSERT INTO grab_domain_procedure_info" +
             "(grab_domain_basic_id, grab_domain_procedure_item, grab_domain_procedure_name, grab_domain_procedure_describe," +
-            " grab_domain_procedure_in_param, grab_domain_procedure_out_param_name, grab_domain_procedure_out_param_type, " +
+            " grab_domain_procedure_in_param, grab_domain_procedure_out_param_name, grab_domain_procedures_out_param_type, " +
             " grab_domain_procedure_package, grab_domain_procedure_clazz, remark, backup_txt1, backup_txt2, backup_txt3) VALUES " +
             " (#{grabDomainBasicId}, #{grabDomainProcedureItem}, #{grabDomainProcedureName}, #{grabDomainProcedureDescribe}, " +
             " #{grabDomainProcedureInParam}, #{grabDomainProcedureOutParamName}, #{grabDomainProcedureOutParamType},#{grabDomainProcedurePackage}," +

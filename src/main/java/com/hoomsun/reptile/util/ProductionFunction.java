@@ -40,16 +40,17 @@ public class ProductionFunction {
 			String[] arrayPackage = packageName.split(",");
 
 			/* 批量引入 */
+			pool.importPackage("java.util.Map");
 			for (int i = 0; i < arrayPackage.length; i++) {
 				pool.importPackage(arrayPackage[i]);
 			}
 			StringBuffer buffer = new StringBuffer();
 
 			/* 判断方法修饰符 */
-			if ("public".equals(grabDomainMethodInfo.getBackupTxt1())) {
+			if ("public".equals(grabDomainMethodInfo.getBackupTxt2())) {
 				// //为自定义方法设置修饰符
 				buffer.append("public ");
-			} else if ("private".equals(grabDomainMethodInfo.getBackupTxt1())) {
+			} else if ("private".equals(grabDomainMethodInfo.getBackupTxt2())) {
 				buffer.append("private ");
 			} else {
 				logger.error("failed! 未配置当前修饰符");
@@ -57,7 +58,7 @@ public class ProductionFunction {
 			}
 
 			/* 判断是否静态 */
-			if ("yes".equals(grabDomainMethodInfo.getBackupTxt2())) {
+			if ((ReptileConstant.YES).equals(grabDomainMethodInfo.getBackupTxt3())) {
 				buffer.append("static ");
 			}
 
@@ -76,7 +77,7 @@ public class ProductionFunction {
 			} else if (grabDomainMethodInfo.getMethodOutParamType().equals("list")) {
 				buffer.append("List<?> ");
 			} else {
-				logger.error("failed!出参错误");
+				logger.warn("--------------failed!出参类型配置错误，请重新配置！---------------类名：" + grabDomainMethodInfo.getMethodClazz()+"；方法名："+grabDomainMethodInfo.getMethodName());
 				return false;
 			}
 			String oo = " (Map map)";
@@ -106,9 +107,8 @@ public class ProductionFunction {
 			fos.write(byteArr);
 			fos.close();
 		} catch (Exception e) {
-			logger.error("failed!", e.fillInStackTrace());
+			logger.error("-------------类及方法加载失败，类名："+grabDomainMethodInfo.getMethodClazz()+"；方法名："+grabDomainMethodInfo.getMethodName(), e);
 			return false;
-			// TODO: handle exception
 		}
 		return true;
 

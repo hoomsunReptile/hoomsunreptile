@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +48,7 @@ public class ReptileService {
      * @param map 请求入参
      * @return
      */
-	public Map<String,Object> doRequest(String type,String step, Map<String,Object> params){
+	public Map<String,Object> doRequest(HttpServletRequest request,String type,int step, Map<String,Object> params){
     	logger.warn("------------爬虫开始-----------模板id:"+type+";请求参数:"+params+"----------------");
 		Map<String,Object> data = new HashMap<String, Object>();
 		try {
@@ -54,26 +56,25 @@ public class ReptileService {
 			GrabDomainBasicInfo basic = basicInfoDao.get(type);
 			if(basic != null){
 				params.put(ReptileConstant.BROWSER_TYPE, basic.getBackupTxt1());
-				//查询type对应的步骤表
-				List<GrabDomainProcedureInfo> procedures = procedureInfoDao.getProcedureById(basic.getId());
 				
-				if(procedures != null && procedures.size() > 0){
+				//查询type对应的步骤表
+				GrabDomainProcedureInfo procedureInfo = procedureInfoDao.getProcedureByBasicId(basic.getId(), step);
+				
+				if(procedureInfo != null){
 					
-					int i = Integer.parseInt(step) - 1;
-					
-					//获取list中的第n条数据
-					GrabDomainProcedureInfo procedureInfo = procedures.get(i);
 					//查询需要调用的具体方法
 					List<GrabDomainMethodInfo> methods = methodInfoDao.getMethodById(procedureInfo.getId());
 					//入参类型
 					for (GrabDomainMethodInfo item:methods) {
+						
 							params.put("backupTxt1", item.getBackupTxt1());//方法中需要的一些常量可以放在该字段中。
-							Class<?> clazz = null;
+							
 							//MethodExistFlag为1时，该方法在项目中存在；MethodExistFlag为0时，该方法为动态加载类，动态加载类放在com.hoomsun.reptile.classLoader包下
 							if((ReptileConstant.NO).equals(item.getMethodExistFlag())){
 								item.setMethodPackage(ReptileConstant.CLASS_PACKAGE_INFO);
 							}
 							
+							Class<?> clazz = null;
 							try {
 								//加载类
 								clazz = Class.forName(item.getMethodPackage()+ReptileConstant.POINT+item.getMethodClazz());
@@ -84,7 +85,7 @@ public class ReptileService {
 							//创建实例
 							Object obj = clazz.newInstance();
 							//当方法返回值不为void时，将方法的返回值加到params中已供后面调用的方法使用，注意：若params中key不要设重复，以免覆盖之前的值
-							if(!"void".equals(item.getMethodOutParamType())){
+							if(!(ReptileConstant.METHOD_TYPE_VOID).equals(item.getMethodOutParamType())){
 								Object result = clazz.getMethod(item.getMethodName(), new Class[]{Map.class}).invoke(obj, new Object[]{params}); //执行
 								params.put(item.getMethodOutParamName(), result);
 							}else {

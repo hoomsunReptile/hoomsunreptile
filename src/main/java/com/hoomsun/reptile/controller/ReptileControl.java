@@ -2,8 +2,11 @@ package com.hoomsun.reptile.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hoomsun.reptile.service.ReptileService;
@@ -32,9 +35,9 @@ public class ReptileControl {
      * @return
      */
     @RequestMapping(value = "/reptile")
-    public Map<String,Object> doRequest(String type,String step,Map<String,Object> map){
+    public Map<String,Object> doRequest(HttpServletRequest request,@RequestParam("type")String type,@RequestParam("step")int step,@RequestParam("params")Map<String,Object> params){
 
-    	return reptileService.doRequest(type,step,map);
+    	return reptileService.doRequest(request,type,step,params);
     }
     
 	
