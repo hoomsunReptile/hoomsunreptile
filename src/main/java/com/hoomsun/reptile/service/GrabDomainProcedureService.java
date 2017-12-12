@@ -42,6 +42,6 @@ public class GrabDomainProcedureService {
     }
 
     public List<GrabDomainProcedureInfo> getProcedureById(String grabDomainBasicId){
-        return procedureInfoDao.getProcedureById(grabDomainBasicId);
+        return procedureInfoDao.getProcedureById(Integer.parseInt(grabDomainBasicId));
     }
 }

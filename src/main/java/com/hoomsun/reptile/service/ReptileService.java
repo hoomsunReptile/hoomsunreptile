@@ -1,14 +1,5 @@
 package com.hoomsun.reptile.service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.hoomsun.reptile.dao.GrabDomainBasicInfoDao;
 import com.hoomsun.reptile.dao.GrabDomainMethodInfoDao;
 import com.hoomsun.reptile.dao.GrabDomainProcedureInfoDao;
@@ -16,6 +7,14 @@ import com.hoomsun.reptile.entity.GrabDomainBasicInfo;
 import com.hoomsun.reptile.entity.GrabDomainMethodInfo;
 import com.hoomsun.reptile.entity.GrabDomainProcedureInfo;
 import com.hoomsun.reptile.util.ReptileConstant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 爬虫公共service层
@@ -55,7 +54,7 @@ public class ReptileService {
 			if(basic != null){
 				params.put(ReptileConstant.BROWSER_TYPE, basic.getBackupTxt1());
 				//查询type对应的步骤表
-				List<GrabDomainProcedureInfo> procedures = procedureInfoDao.getProcedureById(String.valueOf(basic.getId()));
+				List<GrabDomainProcedureInfo> procedures = procedureInfoDao.getProcedureById(basic.getId());
 				
 				if(procedures != null && procedures.size() > 0){
 					

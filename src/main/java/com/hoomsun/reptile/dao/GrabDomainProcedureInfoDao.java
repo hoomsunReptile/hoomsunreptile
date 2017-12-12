@@ -39,7 +39,7 @@ public interface GrabDomainProcedureInfoDao {
     })
 
     @Select("SELECT * FROM grab_domain_procedure_info WHERE grab_domain_basic_id = #{grabDomainBasicId} order by grab_domain_procedure_item asc")
-    List<GrabDomainProcedureInfo> getProcedureById(String grabDomainBasicId);
+    List<GrabDomainProcedureInfo> getProcedureById(int grabDomainBasicId);
 
     /**
      * 新增步骤信息
