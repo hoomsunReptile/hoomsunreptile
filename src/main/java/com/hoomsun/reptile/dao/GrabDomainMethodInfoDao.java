@@ -50,7 +50,11 @@ public interface GrabDomainMethodInfoDao {
             @Result(property = "backupTxt3", column = "backup_txt3"),
     })
 
-    @Select("SELECT * FROM grab_domain_method_info WHERE grab_domain_procedure_id = #{grabDomainProcedureId}")
+    @Select("SELECT ID,GRAB_DOMAIN_BASIC_ID, GRAB_DOMAIN_PROCEDURE_ID,METHOD_COUNT_TOTAL,METHOD_ITEM,METHOD_ITEM_DESCRIBE,METHOD_NAME,"
+            + "METHOD_DESCRIBE,METHOD_IN_PARAM,METHOD_OUT_PARAM_NAME,METHOD_OUT_PARAM_TYPE,METHOD_BODY,METHOD_PACKAGE,METHOD_CLAZZ,"
+            + "METHOD_EXIST_FLAG,STATUS,REMARK,METHOD_IMPORT_PACKAGE,BACKUP_TXT1,BACKUP_TXT2,BACKUP_TXT3 "
+            + "FROM GRAB_DOMAIN_METHOD_INFO "
+            + "WHERE GRAB_DOMAIN_PROCEDURE_ID = #{grabDomainProcedureId}")
     List<GrabDomainMethodInfo> getMethodById(int grabDomainProcedureId);
 
     /**

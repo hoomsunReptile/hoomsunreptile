@@ -2,8 +2,11 @@ package com.hoomsun.reptile.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hoomsun.reptile.service.ReptileService;
@@ -11,19 +14,19 @@ import com.hoomsun.reptile.service.ReptileService;
 
 /**
  * 爬虫入口
- * @ClassName: ReptileControl  
- * @Description: 爬虫请求类  
+ * @ClassName: ReptileControl
+ * @Description: 爬虫请求类
  * @author: xuesongcui
- * @date 2017年12月11日  
+ * @date 2017年12月11日
  *
  */
 @RestController
 @RequestMapping(value = "/hoomsun")
 public class ReptileControl {
-	
+
     @Autowired
     private ReptileService reptileService;
-    
+
     /**
      * 爬虫请求入口
      * @param type 模板ID，即为抓取域基本信息中的英文描述
@@ -32,10 +35,10 @@ public class ReptileControl {
      * @return
      */
     @RequestMapping(value = "/reptile")
-    public Map<String,Object> doRequest(String type,String step,Map<String,Object> map){
+    public Map<String,Object> doRequest(HttpServletRequest request,@RequestParam("type")String type,@RequestParam("step")int step,@RequestParam("params")Map<String,Object> params){
 
-    	return reptileService.doRequest(type,step,map);
+        return reptileService.doRequest(request,type,step,params);
     }
-    
-	
+
+
 }

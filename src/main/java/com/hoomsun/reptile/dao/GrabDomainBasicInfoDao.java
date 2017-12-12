@@ -109,7 +109,9 @@ public interface GrabDomainBasicInfoDao {
             @Result(property = "backupTxt2", column = "backup_txt2"),
             @Result(property = "backupTxt3", column = "backup_txt3")
     })
-    @Select("select * from grab_domain_basic_info")
+    @Select("SELECT ID, GRAB_DOMAIN_EN_DESCRIBE,GRAB_DOMAIN_CN_DESCRIBE,GRAB_DOMAIN_PROCEDURE_TOTAL,GRAB_DOMAIN_LOGIN_ADDRESS,"
+            + "LOGIN_IN_PARAM,CONTROL_FLAG,KEYBOARD_FLAG,STATUS,REMARK,BACKUP_TXT1,BACKUP_TXT2,BACKUP_TXT3 "
+            + "FROM GRAB_DOMAIN_BASIC_INFO ")
     List<GrabDomainBasicInfo> getAllBasic();
 }
 
