@@ -2,7 +2,6 @@ package com.hoomsun.reptile.service;
 
 import com.hoomsun.reptile.dao.GrabDomainMethodInfoDao;
 import com.hoomsun.reptile.entity.GrabDomainMethodInfo;
-import com.hoomsun.reptile.util.ProductionFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +29,19 @@ public class GrabDomainMethodService {
         methodInfoDao.deleteMethodById(id);
     }
 
+    public void deleteMethodByProcedureId(String grabDomainProcedureId){
+        methodInfoDao.deleteMethodByProcedureId(grabDomainProcedureId);
+    }
+
    public  void putMethodById(GrabDomainMethodInfo info){
         methodInfoDao.putMethodById(info);
     }
 
     public List<GrabDomainMethodInfo> getMethodById(int grabDomainProcedureId){
         return methodInfoDao.getMethodById(grabDomainProcedureId);
+    }
+
+    public GrabDomainMethodInfo getMehodByMehodId( String id){
+        return methodInfoDao.getMehodByMehodId(id);
     }
 }

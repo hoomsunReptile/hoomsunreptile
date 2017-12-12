@@ -39,7 +39,7 @@ public interface GrabDomainProcedureInfoDao {
     })
 
     @Select("SELECT * FROM grab_domain_procedure_info WHERE grab_domain_basic_id = #{grabDomainBasicId} order by grab_domain_procedure_item asc")
-    List<GrabDomainProcedureInfo> getProcedureById(int grabDomainBasicId);
+    List<GrabDomainProcedureInfo> getProcedureById(String grabDomainBasicId);
 
     /**
      * 新增步骤信息
@@ -73,4 +73,28 @@ public interface GrabDomainProcedureInfoDao {
             "backup_txt1=#{backupTxt1},backup_txt2=#{backupTxt2},backup_txt3=#{backupTxt3} " +
             "where id=#{id} ")
     void putProcedureById(GrabDomainProcedureInfo procedureInfo);
+
+    /**
+     * 查询对应id的信息
+     * @param id
+     * @return
+     */
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "grabDomainBasicId", column = "grab_domain_basic_id"),
+            @Result(property = "grabDomainProcedureItem", column = "grab_domain_procedure_item"),
+            @Result(property = "grabDomainProcedureName", column = "grab_domain_procedure_name"),
+            @Result(property = "grabDomainProcedureDescribe", column = "grab_domain_procedure_describe"),
+            @Result(property = "grabDomainProcedureInParam", column = "grab_domain_procedure_in_param"),
+            @Result(property = "grabDomainProcedureOutParamName", column = "grab_domain_procedure_out_param_name"),
+            @Result(property = "grabDomainProcedureOutParamType", column = "grab_domain_procedure_out_param_type"),
+            @Result(property = "grabDomainProcedurePackage", column = "grab_domain_procedure_package"),
+            @Result(property = "grabDomainProcedureClazz", column = "grab_domain_procedure_clazz"),
+            @Result(property = "remark", column = "remark"),
+            @Result(property = "backupTxt1", column = "backup_txt1"),
+            @Result(property = "backupTxt2", column = "backup_txt2"),
+            @Result(property = "backupTxt3", column = "backup_txt3")
+    })
+    @Select("select * from grab_domain_procedure_info where id=#{id}")
+    public GrabDomainProcedureInfo getProcedureInfoById(String id);
 }

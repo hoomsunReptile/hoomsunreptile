@@ -43,7 +43,7 @@ public class ReptileService {
      * 爬虫请求入口
      * @param type 模板ID，即为抓取域基本信息中的英文描述
      * @param step 第几步，该字段存储在抓取域步骤中的grabDomainProcedureItem字段中
-     * @param map 请求入参
+     * @param params 请求入参
      * @return
      */
 	public Map<String,Object> doRequest(String type,String step, Map<String,Object> params){
@@ -55,7 +55,7 @@ public class ReptileService {
 			if(basic != null){
 				params.put(ReptileConstant.BROWSER_TYPE, basic.getBackupTxt1());
 				//查询type对应的步骤表
-				List<GrabDomainProcedureInfo> procedures = procedureInfoDao.getProcedureById(basic.getId());
+				List<GrabDomainProcedureInfo> procedures = procedureInfoDao.getProcedureById(String.valueOf(basic.getId()));
 				
 				if(procedures != null && procedures.size() > 0){
 					

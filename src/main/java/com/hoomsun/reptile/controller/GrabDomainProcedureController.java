@@ -3,11 +3,13 @@ package com.hoomsun.reptile.controller;
 import com.hoomsun.reptile.entity.GrabDomainProcedureInfo;
 
 import com.hoomsun.reptile.service.GrabDomainProcedureService;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -41,9 +43,23 @@ public class GrabDomainProcedureController {
      *
      * @param id
      */
-    @RequestMapping(value = "deleteProcedureById", method = RequestMethod.POST)
-    public void deleteProcedureById(HttpServletRequest request, String id) {
+    @RequestMapping(value = "deleteProcedureById", method = RequestMethod.GET)
+    public String deleteProcedureById(HttpServletRequest request, String id,String grabDomainBasicId){
         procedureService.deleteProcedureById(id);
+        return "redirect:getProcedureById?grabDomainBasicId="+grabDomainBasicId;
+    }
+
+    /**
+     * 根据步骤id查询对应的步骤信息
+     * @param id
+     * @return
+     */
+    @RequestMapping("getProcedureInfoById")
+    @ResponseBody
+    public JSONObject getProcedureInfoById(String id){
+        GrabDomainProcedureInfo procedureInfoById = procedureService.getProcedureInfoById(id);
+        JSONObject jsonObject = JSONObject.fromObject(procedureInfoById);
+        return jsonObject;
     }
 
     /**
@@ -52,8 +68,9 @@ public class GrabDomainProcedureController {
      * @param procedureInfo
      */
     @RequestMapping(value = "putProcedureById", method = RequestMethod.POST)
-    public void putProcedureById(GrabDomainProcedureInfo procedureInfo) {
+    public String putProcedureById(GrabDomainProcedureInfo procedureInfo) {
         procedureService.putProcedureById(procedureInfo);
+        return "redirect:getProcedureById?grabDomainBasicId="+procedureInfo.getGrabDomainBasicId();
     }
 
     /**
@@ -63,7 +80,7 @@ public class GrabDomainProcedureController {
      * @return
      */
     @RequestMapping(value = "getProcedureById", method = RequestMethod.GET)
-    public String getProcedureById(HttpServletRequest request, int grabDomainBasicId, Model model) {
+    public String getProcedureById(HttpServletRequest request, String grabDomainBasicId, Model model) {
         List<GrabDomainProcedureInfo> procedureById = procedureService.getProcedureById(grabDomainBasicId);
         model.addAttribute("grabDomainBasicId",grabDomainBasicId);
         model.addAttribute("procedureById",procedureById);

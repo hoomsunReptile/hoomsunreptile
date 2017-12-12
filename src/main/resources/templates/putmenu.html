@@ -23,17 +23,73 @@
     }
 
     .custom {
-        line-height: 1.1;
+        line-height: 0.5;
     }
 
     .row {
         margin-left: 25px;
     }
-    th{
+
+    th {
         text-align: center;
     }
 </style>
+<script>
+    function loadBasicMesById(basicId) {
+        $.ajax({
+            type: "get",
+            url: "/GrabDomainBasicController/getBasicById?date" + new Date().getTime(),
+            data: {"id": basicId},
+            async: false,
+            dataType: "json",
+            success: function (e) {
+                $("#updateForm").attr("action", "/GrabDomainBasicController/putBasicById")
+                $("#myModalLabel").html("更新模块信息")
+                $("#idmodel").css('display', 'block');
+                $("#id").removeAttr("disabled");
 
+                $("#id").val(e.id)
+                $("#grabDomainCnDescribe").val(e.grabDomainCnDescribe)
+                $("#grabDomainEnDescribe").val(e.grabDomainEnDescribe)
+                $("#grabDomainProcedureTotal").val(e.grabDomainProcedureTotal)
+                $("#grabDomainLoginAddress").val(e.grabDomainLoginAddress)
+                var flag1 = e.controlFlag
+                if (flag1 == "1") {
+                    $("#controlFlagT").prop("checked", true);
+                } else {
+                    $("#controlFlagF").prop("checked", true);
+                }
+                var flag2 = e.keyboardFlag
+                if (flag2 == "1") {
+                    $("#keyboardFlagT").prop("checked", true);
+                } else {
+                    $("#keyboardFlagF").prop("checked", true);
+                }
+                var flag3 = e.status
+                if (flag3 == "1") {
+                    $("#statusT").prop("checked", true);
+                } else {
+                    $("#statusF").prop("checked", true);
+                }
+                $("#loginInParam").val(e.loginInParam);
+                $("#remark").val(e.remark);
+                $("#backupTxt1").val(e.backupTxt1);
+                $("#backupTxt2").val(e.backupTxt2);
+                $("#backupTxt3").val(e.backupTxt3);
+                $('#myModal').modal('show')
+            }
+        })
+    }
+
+    function addBasic() {
+        $("#updateForm").attr("action", "/GrabDomainBasicController/postNewBasic")
+        $("#myModalLabel").html("新增模块信息")
+        $("#idmodel").css("display","none");
+        $("#id").attr("disabled","disabled");
+        $('#updateForm')[0].reset()
+        $("#myModal").modal("show")
+    }
+</script>
 <body class="user-select">
 <section class="container-fluid">
     <header>
@@ -61,7 +117,7 @@
                     </ul>
                     <form action="" method="post" class="navbar-form navbar-right" role="search">
                         <div class="input-group">
-                            <input type="text" class="form-control" autocomplete="off" placeholder="键入关键字搜索"
+                            <input type="text" class="form-control" placeholder="键入关键字搜索"
                                    maxlength="15"/>
                             <span class="input-group-btn">
               <button class="btn btn-default" type="submit">搜索</button>
@@ -116,13 +172,20 @@
             </ul>
         </aside>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
-            <table  style="text-align: center;width: 1400px" class="table">
+            <div class="row">
+                <div class="col-md-5">
+                    <h1 class="page-header">数据采集模块</h1>
+                    <button type="button" class="btn btn-primary" id="addBasicmex" onclick="addBasic()"> 新增模块</button>
+                </div>
+            </div>
+            <div>
+            <table style="text-align: center;width: 1400px" class="table">
                 <thead>
                 <tr>
-                    <th> <span class="visible-lg">ID</span></th>
-                    <th> <span class="visible-lg">名称</span></th>
-                    <th> <span class="visible-lg">别名</span></th>
-                    <th> <span class="visible-lg">访问域名</span></th>
+                    <th><span class="visible-lg">ID</span></th>
+                    <th><span class="visible-lg">名称</span></th>
+                    <th><span class="visible-lg">别名</span></th>
+                    <th><span class="visible-lg">访问域名</span></th>
                     <th><span class="visible-lg">控件</span></th>
                     <th><span class="visible-lg">模拟键盘</span></th>
                     <th><span class="visible-lg">参数</span></th>
@@ -138,86 +201,112 @@
                     <td th:text="${basicList.controlFlag}">前端技术</td>
                     <td th:text="${basicList.keyboardFlag}">web</td>
                     <td th:text="${basicList.loginInParam}">125</td>
-                    <td ><a th:href="@{/GrabDomainProcedureController/getProcedureById(grabDomainBasicId=${basicList.id})}">编辑</a> <a rel="1">删除</a></td>
+                    <td>
+                        <a th:onclick="'javascript:loadBasicMesById('+${basicList.id}+');'">修改</a>
+                        <a th:href="@{/GrabDomainProcedureController/getProcedureById(grabDomainBasicId=${basicList.id})}">编辑</a>
+                        <a onclick=" return confirm('确定删除该模块以及该模块所拥有的所有信息？')"
+                           th:href="@{/GrabDomainBasicController/deleteBasicById(id=${basicList.id})}">删除</a></td>
                 </tr>
-
                 </tbody>
             </table>
-            <div class="row">
-                <div class="col-md-5">
-                    <h1 class="page-header">新增数据采集模块</h1>
-                    <form action="/GrabDomainBasicController/postNewBasic" method="post" autocomplete="off">
-                        <div class="form-group custom">
-                            <label for="grabDomainCnDescribe">数据采集名称（CN）</label>
-                            <input type="text" id="grabDomainCnDescribe" name="grabDomainCnDescribe" class="form-control"
-                                   placeholder="" required="required" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="grabDomainEnDescribe">数据采集名称（EN）</label>
-                            <input type="text" id="grabDomainEnDescribe" name="grabDomainEnDescribe" class="form-control"
-                                   placeholder="" required="required" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="grabDomainProcedureTotal">抓取域步骤总数</label>
-                            <input type="text" id="grabDomainProcedureTotal" name="grabDomainProcedureTotal" class="form-control"
-                                   placeholder="" required="required" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="grabDomainLoginAddress">数据采集访问域名</label>
-                            <input type="text" id="grabDomainLoginAddress" name="grabDomainLoginAddress"
-                                   class="form-control"
-                                   placeholder="" required="required" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label>控件定位</label>
-                            <br/>
-                            <input type="radio" id="controlFlagT" name="controlFlag"
-                                   class="form-control" value="1" checked="checked"/>true
-                            <input type="radio" id="controlFlagF" name="controlFlag"
-                                   class="form-control" value="0"/>false
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label>模拟键盘输入</label>
-                            <br/>
-                            <input type="radio" id="keyboardFlagT" name="keyboardFlag" class="form-control" checked="checked"
-                                   value="1"/>true
-                            <input type="radio" id="keyboardFlagF" name="keyboardFlag" class="form-control" value="0"/>false
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label>状态</label>
-                            <br/>
-                            <input type="radio" id="statusT" name="status" class="form-control" checked="checked"
-                                   value="1"/>true
-                            <input type="radio" id="statusF" name="status" class="form-control" value="0"/>false
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label for="loginInParam">登录入参</label>
-                            <input type="text" id="loginInParam" name="loginInParam" class="form-control"
-                                   placeholder="" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label for="remark">备注</label>
-                            <textarea class="form-control" id="remark" name="remark" rows="4"
-                                      autocomplete="off"></textarea>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label for="remark">备用1</label>
-                            <input type="text" id="backupTxt1" name="backupTxt1" class="form-control"
-                                   placeholder="" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label for="remark">备用2</label>
-                            <input type="text" id="backupTxt2" name="backupTxt2" class="form-control"
-                                   placeholder="" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label for="remark">备用3</label>
-                            <input type="text" id="backupTxt3" name="backupTxt3" class="form-control"
-                                   placeholder="" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <button class="btn btn-primary" type="submit" name="submit">添加新模块</button>
-                    </form>
-                </div>
+            </div>
+            <!-- 修改模态框（Modal） -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">更新步骤信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/GrabDomainBasicController/putBasicById" method="post" id="updateForm">
+                                <div class="form-group custom" id="idmodel">
+                                    <label for="id">序号</label>
+                                    <input type="text" id="id" name="id"
+                                           class="form-control" readonly="readonly"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="grabDomainCnDescribe">数据采集名称（CN）</label>
+                                    <input type="text" id="grabDomainCnDescribe" name="grabDomainCnDescribe"
+                                           class="form-control"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="grabDomainEnDescribe">数据采集名称（EN）</label>
+                                    <input type="text" id="grabDomainEnDescribe" name="grabDomainEnDescribe"
+                                           class="form-control"
+                                    />
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="grabDomainProcedureTotal">抓取域步骤总数</label>
+                                    <input type="text" id="grabDomainProcedureTotal" name="grabDomainProcedureTotal"
+                                           class="form-control"
+                                    />
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="grabDomainLoginAddress">数据采集访问域名</label>
+                                    <input type="text" id="grabDomainLoginAddress" name="grabDomainLoginAddress"
+                                           class="form-control"
+                                    />
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group">
+                                    <label>控件定位</label>
+                                    <br/>
+                                    <input type="radio" id="controlFlagT" name="controlFlag"
+                                           class="form-control" value="1" checked="checked"/>true
+                                    <input type="radio" id="controlFlagF" name="controlFlag"
+                                           class="form-control" value="0"/>false
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group">
+                                    <label>模拟键盘输入</label>
+                                    <br/>
+                                    <input type="radio" id="keyboardFlagT" name="keyboardFlag" class="form-control"
+                                           checked="checked"
+                                           value="1"/>true
+                                    <input type="radio" id="keyboardFlagF" name="keyboardFlag" class="form-control"
+                                           value="0"/>false
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group">
+                                    <label>状态</label>
+                                    <br/>
+                                    <input type="radio" id="statusT" name="status" class="form-control"
+                                           checked="checked" value="1"/>true
+                                    <input type="radio" id="statusF" name="status" class="form-control" value="0"/>false
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="loginInParam">登录入参</label>
+                                    <input type="text" id="loginInParam" name="loginInParam" class="form-control"
+                                    />
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="remark">备注</label>
+                                    <textarea class="form-control" id="remark" name="remark" rows="4"
+                                    ></textarea>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="remark">备用1</label>
+                                    <input type="text" id="backupTxt1" name="backupTxt1" class="form-control"
+                                    />
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="remark">备用2</label>
+                                    <input type="text" id="backupTxt2" name="backupTxt2" class="form-control"
+                                    />
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="remark">备用3</label>
+                                    <input type="text" id="backupTxt3" name="backupTxt3" class="form-control"
+                                    />
+                                    <span class="prompt-text"></span></div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" onclick="$('#updateForm').submit();">提交更改
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
             </div>
         </div>
     </div>
@@ -241,32 +330,32 @@
                         <tr>
                             <td wdith="20%">姓名:</td>
                             <td width="80%"><input type="text" value="王雨" class="form-control" name="truename"
-                                                   maxlength="10" autocomplete="off"/></td>
+                                                   maxlength="10"/></td>
                         </tr>
                         <tr>
                             <td wdith="20%">用户名:</td>
                             <td width="80%"><input type="text" value="admin" class="form-control" name="username"
-                                                   maxlength="10" autocomplete="off"/></td>
+                                                   maxlength="10"/></td>
                         </tr>
                         <tr>
                             <td wdith="20%">电话:</td>
                             <td width="80%"><input type="text" value="18538078281" class="form-control" name="usertel"
-                                                   maxlength="13" autocomplete="off"/></td>
+                                                   maxlength="13"/></td>
                         </tr>
                         <tr>
                             <td wdith="20%">旧密码:</td>
                             <td width="80%"><input type="password" class="form-control" name="old_password"
-                                                   maxlength="18" autocomplete="off"/></td>
+                                                   maxlength="18"/></td>
                         </tr>
                         <tr>
                             <td wdith="20%">新密码:</td>
                             <td width="80%"><input type="password" class="form-control" name="password" maxlength="18"
-                                                   autocomplete="off"/></td>
+                            /></td>
                         </tr>
                         <tr>
                             <td wdith="20%">确认密码:</td>
                             <td width="80%"><input type="password" class="form-control" name="new_password"
-                                                   maxlength="18" autocomplete="off"/></td>
+                                                   maxlength="18"/></td>
                         </tr>
                         </tbody>
                         <tfoot>

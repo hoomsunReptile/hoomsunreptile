@@ -71,10 +71,10 @@ public class InsertTest {
         service.postNewProcedure(procedureInfo);
     }
 
-    @Test
-    public void deleteProcedureByid(){
-        service.deleteProcedureById("4");
-    }
+//    @Test
+//    public void deleteProcedureByid(){
+//        service.deleteProcedureById("4");
+//    }
 
     @Test
     public void putProcedure(){
@@ -87,7 +87,7 @@ public class InsertTest {
 
     @Test
     public  void  getProcedure(){
-        List<GrabDomainProcedureInfo> procedureById = service.getProcedureById(1);
+        List<GrabDomainProcedureInfo> procedureById = service.getProcedureById("1");
         System.out.println(procedureById);
     }
     @Test
@@ -98,10 +98,10 @@ public class InsertTest {
         basicInfo.setRemark("周六过来加班了");
         basicService.postNewBasic(basicInfo);
     }
-    @Test
-    public void deleteBasic(){
-        basicService.deleteBasicById("1");
-    }
+//    @Test
+//    public void deleteBasic(){
+//        basicService.deleteBasicById("1");
+//    }
 
     @Test
     public void putBasic(){

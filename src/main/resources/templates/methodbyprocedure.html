@@ -23,22 +23,82 @@
     }
 
     .custom {
-        line-height: 1.1;
+        line-height: 0.5;
     }
 
     .row {
         margin-left: 25px;
     }
-    .table{
+
+    .table {
         width: 155%;
         max-width: 155%;
     }
-    th{
-         text-align: center;
-     }
+
+    th {
+        text-align: center;
+    }
 
 </style>
+<script>
+    function loadMehtodMesById(methodId) {
+        $.ajax({
+            type: "get",
+            url: "/GrabDomainMethodController/getMehodByMehodId?date" + new Date().getTime(),
+            data: {"id": methodId},
+            async: false,
+            dataType: "json",
+            success: function (e) {
+                $("#updateForm").attr("action", "/GrabDomainMethodController/putMethodById")
+                $("#myModalLabel").html("更新方法信息")
+                $("#idmodel").css('display', 'block');
+                $("#id").removeAttr("disabled");
 
+                $("#id").val(e.id)
+                $("#grabDomainProcedureId").val(e.grabDomainProcedureId)
+                $("#methodCountTotal").val(e.methodCountTotal)
+                $("#methodItem").val(e.methodItem)
+                $("#methodItemDescribe").val(e.methodItemDescribe)
+                $("#methodName").val(e.methodName)
+                $("#methodDescribe").val(e.methodDescribe)
+                $("#methodInParam").val(e.methodInParam)
+                $("#methodOutParamName").val(e.methodOutParamName)
+                $("#methodOutParamType").val(e.methodOutParamType)
+                $("#methodBody").val(e.methodBody)
+                $("#methodPackage").val(e.methodPackage)
+                $("#methodClazz").val(e.methodClazz)
+                var flag1 = e.methodExistFlag
+                if (flag1 == "1") {
+                    $("#methodExistFlagT").prop("checked", true);
+                } else {
+                    $("#methodExistFlagF").prop("checked", true);
+                }
+                var flag2 = e.status
+                if (flag2 == "1") {
+                    $("#statusT").prop("checked", true);
+                } else {
+                    $("#statusF").prop("checked", true);
+                }
+                $("#methodImportPackage").val(e.methodImportPackage)
+                $("#remark").val(e.remark)
+                $("#backupTxt1").val(e.backupTxt1)
+                $("#backupTxt2").val(e.backupTxt2)
+                $("#backupTxt3").val(e.backupTxt3)
+
+                $('#myModal').modal('show')
+            }
+        })
+    }
+
+    function addMehod() {
+        $("#updateForm").attr("action", "/GrabDomainMethodController/postNewMethod")
+        $("#myModalLabel").html("新增方法信息")
+        $("#idmodel").css("display","none");
+        $("#id").attr("disabled","disabled");
+        $('#updateForm')[0].reset()
+        $("#myModal").modal("show")
+    }
+</script>
 <body class="user-select">
 <section class="container-fluid">
     <header>
@@ -125,166 +185,195 @@
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
             <div class="row">
-                <!--数据区域 -->
-                <div style="clear: both">
-                    <div style="overflow-x:scroll">
-                        <table  width="3000px" style="text-align: center" class="table">
-                            <thead>
-                            <tr>
-                                <th> <span class="visible-lg">序号</span></th>
-                                <th> <span class="visible-lg">抓取域基本信息id</span></th>
-                                <th><span class="visible-lg">抓取域步骤id</span></th>
-                                <th><span class="visible-lg">调用方法总数</span></th>
-                                <th> <span class="visible-lg">调用的方法为第几步</span></th>
-                                <th> <span class="visible-lg">执行方法具体描述</span></th>
-                                <th> <span class="visible-lg">执行方法名称</span></th>
-                                <th> <span class="visible-lg">执行方法描述</span></th>
-                                <th> <span class="visible-lg">执行方法入参</span></th>
-                                <th> <span class="visible-lg">执行方法出参名</span></th>
-                                <th> <span class="visible-lg">执行方法出参类型</span></th>
-                                <th> <span class="visible-lg">执行方法体</span></th>
-                                <th> <span class="visible-lg">执行方法所在包名</span></th>
-                                <th> <span class="visible-lg">执行方法所在类名</span></th>
-                                <th> <span class="visible-lg">是否可调用已有的方法</span></th>
-                                <th> <span class="visible-lg">状态</span></th>
-                                <th> <span class="visible-lg">备注</span></th>
-                                <th> <span class="visible-lg">需要导入的包</span></th>
-                                <th> <span class="visible-lg">操作</span></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="methodList:${methodInfoList}" >
-                                <td th:text="${methodList.id}">1</td>
-                                <td th:text="${methodList.grabDomainBasicId}">前端技术</td>
-                                <td th:text="${methodList.grabDomainProcedureId}">web</td>
-                                <td th:text="${methodList.methodCountTotal}">125</td>
-                                <td th:text="${methodList.methodItem}">前端技术</td>
-                                <td th:text="${methodList.methodItemDescribe}">web</td>
-                                <td th:text="${methodList.methodName}">125</td>
-                                <td th:text="${methodList.methodDescribe}">125</td>
-                                <td th:text="${methodList.methodInParam}">125</td>
-                                <td th:text="${methodList.methodOutParamName}">125</td>
-                                <td th:text="${methodList.methodOutParamType}">125</td>
-                                <td th:text="${methodList.methodBody}">125</td>
-                                <td th:text="${methodList.methodPackage}">125</td>
-                                <td th:text="${methodList.methodClazz}">125</td>
-                                <td th:text="${methodList.methodExistFlag}">125</td>
-                                <td th:text="${methodList.status}">125</td>
-                                <td th:text="${methodList.remark}">125</td>
-                                <td th:text="${methodList.methodImportPackage}">125</td>
-                                <td><a href="update-category.html">修改</a> <a rel="1">删除</a></td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                        <span class="prompt-text"><strong>注：</strong>删除一个栏目也会删除栏目下的文章和子栏目,请谨慎删除!</span>
-                    </div>
-                </div>
-                <!-- -->
                 <div class="col-md-5">
-                    <h1 class="page-header">新增数据采集模块--方法编辑区</h1>
-                    <form action="/GrabDomainMethodController/postNewMethod" method="post" autocomplete="off">
-                        <!--<div class="form-group custom">-->
-                            <!--<label for="grabDomainBasicId">抓取域基本信息id</label>-->
-                            <!--<input type="text" id="grabDomainBasicId" name="grabDomainBasicId" class="form-control" th:value="${grabDomainProcedureId}" readonly="readonly"/>-->
-                            <!--<span class="prompt-text"></span></div>-->
-                        <div class="form-group custom">
-                            <label for="grabDomainProcedureId">抓取域步骤id</label>
-                            <input type="text" id="grabDomainProcedureId" name="grabDomainProcedureId" class="form-control" th:value="${grabDomainProcedureId}" readonly="readonly"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="methodCountTotal">调用方法总数</label>
-                            <input type="text" id="methodCountTotal" name="methodCountTotal" class="form-control"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="methodItem">调用的方法为第几步</label>
-                            <input type="text" id="methodItem" name="methodItem" class="form-control"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="methodItemDescribe">执行方法具体描述</label>
-                            <input type="text" id="methodItemDescribe" name="methodItemDescribe" class="form-control"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="methodName">执行方法名称</label>
-                            <input type="text" id="methodName" name="methodName" class="form-control"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="methodDescribe">执行方法描述</label>
-                            <input type="text" id="methodDescribe" name="methodDescribe" class="form-control"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="methodInParam">执行方法入参</label>
-                            <input type="text" id="methodInParam" name="methodInParam" class="form-control"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="methodOutParamName">执行方法出参名</label>
-                            <input type="text" id="methodOutParamName" name="methodOutParamName" class="form-control"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="methodOutParamType">执行方法出参类型</label>
-                            <input type="text" id="methodOutParamType" name="methodOutParamType" class="form-control"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label for="methodBody">执行方法体</label>
-                            <textarea class="form-control" id="methodBody" name="methodBody"
-                                      rows="4"
-                                      autocomplete="off"></textarea>
-                            <span class="prompt-text">新增模块功能概述</span></div>
-
-                        <div class="form-group custom">
-                            <label for="methodPackage">执行方法所在包名</label>
-                            <input type="text" id="methodPackage" name="methodPackage" class="form-control"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="methodClazz">执行方法所在类名</label>
-                            <input type="text" id="methodClazz" name="methodClazz" class="form-control"/>
-                            <span class="prompt-text"></span></div>
-
-                        <div class="form-group">
-                            <label>是否可调用已有的方法</label>
-                            <br/>
-                            <input type="radio" id="methodExistFlagT" name="methodExistFlag"
-                                   class="form-control" value="1" checked="checked"/>true
-                            <input type="radio" id="methodExistFlagF" name="methodExistFlag"
-                                   class="form-control" value="0"/>false
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label>状态</label>
-                            <br/>
-                            <input type="radio" id="statusT" name="status" class="form-control" checked="checked"
-                                   value="1"/>true
-                            <input type="radio" id="statusF" name="status" class="form-control" value="0"/>false
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="methodImportPackage">需要导入的包</label>
-                            <input type="text" id="methodImportPackage" name="methodImportPackage" class="form-control"/>
-                            <span class="prompt-text"></span></div>
-
-                        <div class="form-group">
-                            <label for="remark">备注</label>
-                            <textarea class="form-control" id="remark" name="remark" rows="4"
-                                      autocomplete="off"></textarea>
-                            <span class="prompt-text">新增模块功能概述</span></div>
-                        <div class="form-group">
-                            <label for="remark">备用1</label>
-                            <input type="text" id="backupTxt1" name="backupTxt1" class="form-control"
-                                   placeholder="" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label for="remark">备用2</label>
-                            <input type="text" id="backupTxt2" name="backupTxt2" class="form-control"
-                                   placeholder="" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label for="remark">备用3</label>
-                            <input type="text" id="backupTxt3" name="backupTxt3" class="form-control"
-                                   placeholder="" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <button class="btn btn-primary" type="submit" name="submit">添加新模块</button>
-                    </form>
+                    <h1 class="page-header">方法模块</h1>
+                    <button type="button" class="btn btn-primary" id="addBasicmex" onclick="addMehod()"> 新增方法</button>
                 </div>
-
             </div>
+            <!--数据区域 -->
+            <div style="overflow-x:scroll">
+                <table width="3000px" style="text-align: center" class="table">
+                    <thead>
+                    <tr>
+                        <th><span class="visible-lg">序号</span></th>
+                        <th><span class="visible-lg">抓取域基本信息id</span></th>
+                        <th><span class="visible-lg">抓取域步骤id</span></th>
+                        <th><span class="visible-lg">调用方法总数</span></th>
+                        <th><span class="visible-lg">调用的方法为第几步</span></th>
+                        <th><span class="visible-lg">执行方法具体描述</span></th>
+                        <th><span class="visible-lg">执行方法名称</span></th>
+                        <th><span class="visible-lg">执行方法描述</span></th>
+                        <th><span class="visible-lg">执行方法入参</span></th>
+                        <th><span class="visible-lg">执行方法出参名</span></th>
+                        <th><span class="visible-lg">执行方法出参类型</span></th>
+                        <th><span class="visible-lg">执行方法体</span></th>
+                        <th><span class="visible-lg">执行方法所在包名</span></th>
+                        <th><span class="visible-lg">执行方法所在类名</span></th>
+                        <th><span class="visible-lg">是否可调用已有的方法</span></th>
+                        <th><span class="visible-lg">状态</span></th>
+                        <th><span class="visible-lg">备注</span></th>
+                        <th><span class="visible-lg">需要导入的包</span></th>
+                        <th><span class="visible-lg">操作</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="methodList:${methodInfoList}">
+                        <td th:text="${methodList.id}">1</td>
+                        <td th:text="${methodList.grabDomainBasicId}">前端技术</td>
+                        <td th:text="${methodList.grabDomainProcedureId}">web</td>
+                        <td th:text="${methodList.methodCountTotal}">125</td>
+                        <td th:text="${methodList.methodItem}">前端技术</td>
+                        <td th:text="${methodList.methodItemDescribe}">web</td>
+                        <td th:text="${methodList.methodName}">125</td>
+                        <td th:text="${methodList.methodDescribe}">125</td>
+                        <td th:text="${methodList.methodInParam}">125</td>
+                        <td th:text="${methodList.methodOutParamName}">125</td>
+                        <td th:text="${methodList.methodOutParamType}">125</td>
+                        <td th:text="${methodList.methodBody}">125</td>
+                        <td th:text="${methodList.methodPackage}">125</td>
+                        <td th:text="${methodList.methodClazz}">125</td>
+                        <td th:text="${methodList.methodExistFlag}">125</td>
+                        <td th:text="${methodList.status}">125</td>
+                        <td th:text="${methodList.remark}">125</td>
+                        <td th:text="${methodList.methodImportPackage}">125</td>
+                        <td><a th:onclick="'javascript:loadMehtodMesById('+${methodList.id}+');'">修改</a>
+                            <a onclick="return confirm('是否确认删除该方法？')"
+                               th:href="@{/GrabDomainMethodController/deleteMethodById(id=${methodList.id},grabDomainProcedureId=${methodList.grabDomainProcedureId})}">删除</a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">更新模块信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/GrabDomainMethodController/putMethodById" method="post" autocomplete="off" id="updateForm">
+                                <div class="form-group custom" id="idmodel">
+                                    <label for="id">id</label>
+                                    <input type="text" id="id" name="id" class="form-control" readonly="readonly"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="grabDomainProcedureId">抓取域步骤id</label>
+                                    <input type="text" id="grabDomainProcedureId" name="grabDomainProcedureId"
+                                           class="form-control" th:value="${grabDomainProcedureId}"
+                                           readonly="readonly"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="methodCountTotal">调用方法总数</label>
+                                    <input type="text" id="methodCountTotal" name="methodCountTotal"
+                                           class="form-control"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="methodItem">调用的方法为第几步</label>
+                                    <input type="text" id="methodItem" name="methodItem" class="form-control"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="methodItemDescribe">执行方法具体描述</label>
+                                    <input type="text" id="methodItemDescribe" name="methodItemDescribe"
+                                           class="form-control"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="methodName">执行方法名称</label>
+                                    <input type="text" id="methodName" name="methodName" class="form-control"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="methodDescribe">执行方法描述</label>
+                                    <input type="text" id="methodDescribe" name="methodDescribe" class="form-control"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="methodInParam">执行方法入参</label>
+                                    <input type="text" id="methodInParam" name="methodInParam" class="form-control"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="methodOutParamName">执行方法出参名</label>
+                                    <input type="text" id="methodOutParamName" name="methodOutParamName"
+                                           class="form-control"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="methodOutParamType">执行方法出参类型</label>
+                                    <input type="text" id="methodOutParamType" name="methodOutParamType"
+                                           class="form-control"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group  custom">
+                                    <label for="methodBody">执行方法体</label>
+                                    <textarea class="form-control" id="methodBody" name="methodBody"
+                                              rows="4"
+                                              autocomplete="off"></textarea>
+                                    <span class="prompt-text"></span></div>
+
+                                <div class="form-group custom">
+                                    <label for="methodPackage">执行方法所在包名</label>
+                                    <input type="text" id="methodPackage" name="methodPackage" class="form-control"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="methodClazz">执行方法所在类名</label>
+                                    <input type="text" id="methodClazz" name="methodClazz" class="form-control"/>
+                                    <span class="prompt-text"></span></div>
+
+                                <div class="form-group">
+                                    <label>是否可调用已有的方法</label>
+                                    <br/>
+                                    <input type="radio" id="methodExistFlagT" name="methodExistFlag"
+                                           class="form-control" value="1" checked="checked"/>true
+                                    <input type="radio" id="methodExistFlagF" name="methodExistFlag"
+                                           class="form-control" value="0"/>false
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group">
+                                    <label>状态</label>
+                                    <br/>
+                                    <input type="radio" id="statusT" name="status" class="form-control"
+                                           checked="checked"
+                                           value="1"/>true
+                                    <input type="radio" id="statusF" name="status" class="form-control" value="0"/>false
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="methodImportPackage">需要导入的包</label>
+                                    <input type="text" id="methodImportPackage" name="methodImportPackage"
+                                           class="form-control"/>
+                                    <span class="prompt-text"></span></div>
+
+                                <div class="form-group custom">
+                                    <label for="remark">备注</label>
+                                    <input type="text" id="remark" name="remark" class="form-control"
+                                           placeholder="" autocomplete="off"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="remark">备用1</label>
+                                    <input type="text" id="backupTxt1" name="backupTxt1" class="form-control"
+                                           placeholder="" autocomplete="off"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="remark">备用2</label>
+                                    <input type="text" id="backupTxt2" name="backupTxt2" class="form-control"
+                                           placeholder="" autocomplete="off"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="remark">备用3</label>
+                                    <input type="text" id="backupTxt3" name="backupTxt3" class="form-control"
+                                           placeholder="" autocomplete="off"/>
+                                    <span class="prompt-text"></span></div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" onclick="$('#updateForm').submit();">
+                                提交更改
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+
         </div>
     </div>
 </section>

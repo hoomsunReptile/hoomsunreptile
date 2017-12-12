@@ -76,6 +76,13 @@ public interface GrabDomainMethodInfoDao {
     void deleteMethodById(String id);
 
     /**
+     * 根据procedureId删除方法
+     * @param grabDomainProcedureId
+     */
+    @Delete("DELETE FROM grab_domain_method_info WHERE grab_domain_procedure_id=#{grabDomainProcedureId}")
+    void deleteMethodByProcedureId(String grabDomainProcedureId);
+
+    /**
      * 修改对应的方法信息
      * @param info
      */
@@ -92,4 +99,29 @@ public interface GrabDomainMethodInfoDao {
             " where id=#{id}")
     void putMethodById(GrabDomainMethodInfo info);
 
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "grabDomainBasicId", column = "grab_domain_basic_id"),
+            @Result(property = "grabDomainProcedureId", column = "grab_domain_procedure_id"),
+            @Result(property = "methodCountTotal", column = "method_count_total"),
+            @Result(property = "methodItem", column = "method_item"),
+            @Result(property = "methodItemDescribe", column = "method_item_describe"),
+            @Result(property = "methodName", column = "method_name"),
+            @Result(property = "methodDescribe", column = "method_describe"),
+            @Result(property = "methodInParam", column = "method_in_param"),
+            @Result(property = "methodOutParamName", column = "method_out_param_name"),
+            @Result(property = "methodOutParamType", column = "method_out_param_type"),
+            @Result(property = "methodBody", column = "method_body"),
+            @Result(property = "methodPackage", column = "method_package"),
+            @Result(property = "methodClazz", column = "method_clazz"),
+            @Result(property = "methodExistFlag", column = "method_exist_flag"),
+            @Result(property = "status", column = "status"),
+            @Result(property = "remark", column = "remark"),
+            @Result(property = "methodImportPackage", column = "method_import_package"),
+            @Result(property = "backupTxt1", column = "backup_txt1"),
+            @Result(property = "backupTxt2", column = "backup_txt2"),
+            @Result(property = "backupTxt3", column = "backup_txt3"),
+    })
+    @Select("select * from grab_domain_method_info where id=#{id}")
+    public GrabDomainMethodInfo getMehodByMehodId( String id);
 }

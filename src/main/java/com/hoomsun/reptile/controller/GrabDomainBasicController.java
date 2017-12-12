@@ -2,10 +2,15 @@ package com.hoomsun.reptile.controller;
 
 import com.hoomsun.reptile.entity.GrabDomainBasicInfo;
 import com.hoomsun.reptile.service.GrabDomainBasicService;
+import com.hoomsun.reptile.service.GrabDomainMethodService;
+import com.hoomsun.reptile.service.GrabDomainProcedureService;
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -23,7 +28,7 @@ import java.util.List;
 @RequestMapping("GrabDomainBasicController")
 public class GrabDomainBasicController {
     @Resource
-    GrabDomainBasicService service;
+    private GrabDomainBasicService service;
 
     /**
      * 新增basicinfo
@@ -43,9 +48,11 @@ public class GrabDomainBasicController {
      * @param request
      * @param id
      */
-    @RequestMapping(value = "deleteBasicById", method = RequestMethod.POST)
-    public void deleteBasicById(HttpServletRequest request, String id) {
+    @RequestMapping(value = "deleteBasicById", method = RequestMethod.GET)
+    public String deleteBasicById(HttpServletRequest request, String id){
+
         service.deleteBasicById(id);
+        return "redirect:getAllBasic";
     }
 
     /**
@@ -55,8 +62,9 @@ public class GrabDomainBasicController {
      * @param basicInfo
      */
     @RequestMapping(value = "putBasicById", method = RequestMethod.POST)
-    public void putBasicById(HttpServletRequest request, GrabDomainBasicInfo basicInfo) {
+    public String putBasicById(HttpServletRequest request, GrabDomainBasicInfo basicInfo) {
         service.putBasicById(basicInfo);
+        return "redirect:getAllBasic";
     }
 
     /**
@@ -66,9 +74,14 @@ public class GrabDomainBasicController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "getBasicById", method = RequestMethod.POST)
-    public GrabDomainBasicInfo getBasicById(HttpServletRequest request, String id) {
-        return service.getBasicById(id);
+    @RequestMapping(value = "getBasicById", method = RequestMethod.GET)
+    @ResponseBody
+    public JSONObject getBasicById(HttpServletRequest request, String id, Model model) {
+        GrabDomainBasicInfo basicById = service.getBasicById(id);
+        JSONObject jsonObject = JSONObject.fromObject(basicById);
+        System.out.println(jsonObject);
+
+        return jsonObject;
     }
 
     /**
@@ -78,9 +91,9 @@ public class GrabDomainBasicController {
      * @return
      */
     @RequestMapping(value = "getAllBasic", method = RequestMethod.GET)
-    public String getAllBasic(HttpServletRequest request ,Model model) {
+    public String getAllBasic(HttpServletRequest request, Model model) {
         List<GrabDomainBasicInfo> allBasic = service.getAllBasic();
-        model.addAttribute("allBasicInfo",allBasic);
+        model.addAttribute("allBasicInfo", allBasic);
         return "putmenu";
     }
 }

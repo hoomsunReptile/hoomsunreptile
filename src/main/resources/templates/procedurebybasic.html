@@ -23,21 +23,64 @@
     }
 
     .custom {
-        line-height: 1.1;
+        line-height: 0.5;
     }
 
     .row {
         margin-left: 25px;
     }
-    .table{
+
+    .table {
         width: 110%;
         max-width: 110%;
     }
-    th{
+
+    th {
         text-align: center;
     }
 </style>
+<script>
+    function loadProcedureMesById(procedureId){
+        $.ajax({
+            type: "get",
+            url: "/GrabDomainProcedureController/getProcedureInfoById?date" + new Date().getTime(),
+            data: {"id": procedureId},
+            async: false,
+            dataType: "json",
+            success: function (e) {
+                $("#updateForm").attr("action", "/GrabDomainProcedureController/putProcedureById")
+                $("#myModalLabel").html("更新步骤信息")
+                $("#idmodel").css('display', 'block');
+                $("#id").removeAttr("disabled");
 
+                $("#id").val(e.id);
+                $("#grabDomainBasicId").val(e.grabDomainBasicId);
+                $("#grabDomainProcedureItem").val(e.grabDomainProcedureItem);
+                $("#grabDomainProcedureName").val(e.grabDomainProcedureName);
+                $("#grabDomainProcedureDescribe").val(e.grabDomainProcedureDescribe);
+                $("#grabDomainProcedureInParam").val(e.grabDomainProcedureInParam);
+                $("#grabDomainProcedureOutParamType").val(e.grabDomainProcedureOutParamType);
+                $("#grabDomainProcedureOutParamName").val(e.grabDomainProcedureOutParamName);
+                $("#grabDomainProcedurePackage").val(e.grabDomainProcedurePackage);
+                $("#grabDomainProcedureClazz").val(e.grabDomainProcedureClazz);
+                $("#remark").val(e.remark);
+                $("#backupTxt1").val(e.backupTxt1);
+                $("#backupTxt2").val(e.backupTxt2);
+                $("#backupTxt3").val(e.backupTxt3);
+
+                $('#myModal').modal('show')
+            }
+        })
+    }
+    function addprocedure() {
+        $("#updateForm").attr("action", "/GrabDomainProcedureController/postNewProcedure")
+        $("#myModalLabel").html("新增步骤信息")
+        $("#idmodel").css("display","none");
+        $("#id").attr("disabled","disabled");
+        $('#updateForm')[0].reset()
+        $("#myModal").modal("show")
+    }
+</script>
 <body class="user-select">
 <section class="container-fluid">
     <header>
@@ -120,122 +163,158 @@
             </ul>
         </aside>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
-            <div style="overflow-x: scroll">
-            <table style="text-align: center" class="table">
-                <thead>
-                <tr>
-                    <th> <span class="visible-lg">ID</span></th>
-                    <th> <span class="visible-lg">抓取域基本信息id</span></th>
-                    <th><span class="visible-lg">抓取域步骤</span></th>
-                    <th> <span class="visible-lg">抓取域方法名称</span></th>
-                    <th><span class="visible-lg">抓取域方法描述</span></th>
-                    <th> <span class="visible-lg">抓取域方法入参</span></th>
-                    <th><span class="visible-lg">抓取域方法出参名</span></th>
-                    <th> <span class="visible-lg">抓取域方法出参类型</span></th>
-                    <th> <span class="visible-lg">抓取域方法所在包名</span></th>
-                    <th><span class="visible-lg">抓取域方法所在类名</span></th>
-                    <th><span class="visible-lg">备注</span></th>
-                    <th><span class="visible-lg">操作</span></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="procedureList : ${procedureById}">
-                    <td th:text="${procedureList.id}">1</td>
-                    <td th:text="${procedureList.grabDomainBasicId}">前端技术</td>
-                    <td th:text="${procedureList.grabDomainProcedureItem}">web</td>
-                    <td th:text="${procedureList.grabDomainProcedureName}">125</td>
-                    <td th:text="${procedureList.grabDomainProcedureDescribe}">前端技术</td>
-                    <td th:text="${procedureList.grabDomainProcedureInParam}">web</td>
-                    <td th:text="${procedureList.grabDomainProcedureOutParamName}">125</td>
-                    <td th:text="${procedureList.grabDomainProcedureOutParamType}">125</td>
-                    <td th:text="${procedureList.grabDomainProcedurePackage}">125</td>
-                    <td th:text="${procedureList.grabDomainProcedureClazz}">125</td>
-                    <td th:text="${procedureList.remark}">125</td>
-                    <td ><a th:href="@{/GrabDomainMethodController/getMethodById(grabDomainProcedureId=${procedureList.id})}">编辑</a> <a rel="1">删除</a></td>
-                </tr>
-
-                </tbody>
-            </table>
-            </div>
             <div class="row">
                 <div class="col-md-5">
-                    <h1 class="page-header"><label th:text="新增步骤"></label></h1>
-                    <form action="/GrabDomainProcedureController/postNewProcedure" method="post" autocomplete="off">
-                        <div class="form-group custom">
-                            <label for="grabDomainBasicId">抓取域基本信息id</label>
-                            <input type="text" id="grabDomainBasicId" name="grabDomainBasicId" class="form-control"
-                                    th:value="${grabDomainBasicId}" readonly="readonly"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="grabDomainProcedureItem">抓取域步骤</label>
-                            <input type="text" id="grabDomainProcedureItem" name="grabDomainProcedureItem" class="form-control"
-                                   placeholder=""  autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="grabDomainProcedureName">抓取域方法名称</label>
-                            <input type="text" id="grabDomainProcedureName" name="grabDomainProcedureName" class="form-control"
-                                   placeholder="" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="grabDomainProcedureDescribe">抓取域方法描述</label>
-                            <input type="text" id="grabDomainProcedureDescribe" name="grabDomainProcedureDescribe"
-                                   class="form-control"
-                                   placeholder="" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="grabDomainProcedureInParam">抓取域方法入参</label>
-                            <input type="text" id="grabDomainProcedureInParam" name="grabDomainProcedureInParam"
-                                   class="form-control"
-                                   placeholder=""  autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="grabDomainProcedureOutParamType">抓取域方法出参类型</label>
-                            <input type="text" id="grabDomainProcedureOutParamType" name="grabDomainProcedureOutParamType"
-                                   class="form-control"
-                                   placeholder=""  autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="grabDomainProcedureOutParamName">抓取域方法出参名</label>
-                            <input type="text" id="grabDomainProcedureOutParamName" name="grabDomainProcedureOutParamName"
-                                   class="form-control"
-                                   placeholder=""  autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="grabDomainProcedurePackage">抓取域方法所在包名</label>
-                            <input type="text" id="grabDomainProcedurePackage" name="grabDomainProcedurePackage"
-                                   class="form-control"
-                                   placeholder=""  autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group custom">
-                            <label for="grabDomainProcedureClazz">抓取域方法所在类名</label>
-                            <input type="text" id="grabDomainProcedureClazz" name="grabDomainProcedureClazz"
-                                   class="form-control"
-                                   placeholder=""  autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label for="remark">备注</label>
-                            <textarea class="form-control" id="remark" name="remark" rows="4"
-                                      autocomplete="off"></textarea>
-                            <span class="prompt-text">新增模块功能概述</span></div>
-                        <div class="form-group">
-                            <label for="remark">备用1</label>
-                            <input type="text" id="backupTxt1" name="backupTxt1" class="form-control"
-                                   placeholder="" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label for="remark">备用2</label>
-                            <input type="text" id="backupTxt2" name="backupTxt2" class="form-control"
-                                   placeholder="" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <div class="form-group">
-                            <label for="remark">备用3</label>
-                            <input type="text" id="backupTxt3" name="backupTxt3" class="form-control"
-                                   placeholder="" autocomplete="off"/>
-                            <span class="prompt-text"></span></div>
-                        <button class="btn btn-primary" type="submit" name="submit">添加新步骤</button>
-                    </form>
+                    <h1 class="page-header">步骤模块</h1>
+                    <button type="button" class="btn btn-primary" id="addBasicmex" onclick="addprocedure()"> 新增步骤</button>
                 </div>
             </div>
+            <div style="overflow-x: scroll">
+                <table style="text-align: center" class="table">
+                    <thead>
+                    <tr>
+                        <th><span class="visible-lg">ID</span></th>
+                        <th><span class="visible-lg">抓取域基本信息id</span></th>
+                        <th><span class="visible-lg">抓取域步骤</span></th>
+                        <th><span class="visible-lg">抓取域方法名称</span></th>
+                        <th><span class="visible-lg">抓取域方法描述</span></th>
+                        <th><span class="visible-lg">抓取域方法入参</span></th>
+                        <th><span class="visible-lg">抓取域方法出参名</span></th>
+                        <th><span class="visible-lg">抓取域方法出参类型</span></th>
+                        <th><span class="visible-lg">抓取域方法所在包名</span></th>
+                        <th><span class="visible-lg">抓取域方法所在类名</span></th>
+                        <th><span class="visible-lg">备注</span></th>
+                        <th><span class="visible-lg">操作</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="procedureList : ${procedureById}">
+                        <td th:text="${procedureList.id}">1</td>
+                        <td th:text="${procedureList.grabDomainBasicId}">前端技术</td>
+                        <td th:text="${procedureList.grabDomainProcedureItem}">web</td>
+                        <td th:text="${procedureList.grabDomainProcedureName}">125</td>
+                        <td th:text="${procedureList.grabDomainProcedureDescribe}">前端技术</td>
+                        <td th:text="${procedureList.grabDomainProcedureInParam}">web</td>
+                        <td th:text="${procedureList.grabDomainProcedureOutParamName}">125</td>
+                        <td th:text="${procedureList.grabDomainProcedureOutParamType}">125</td>
+                        <td th:text="${procedureList.grabDomainProcedurePackage}">125</td>
+                        <td th:text="${procedureList.grabDomainProcedureClazz}">125</td>
+                        <td th:text="${procedureList.remark}">125</td>
+                        <td>
+                            <a th:onclick="'javascript:loadProcedureMesById('+${procedureList.id}+');'">修改</a>
+                            <a th:href="@{/GrabDomainMethodController/getMethodById(grabDomainProcedureId=${procedureList.id})}">编辑</a>
+                            <a onclick="return confirm('是否确认删除该步骤以及该步骤拥有的所有的方法？')"
+                               th:href="@{/GrabDomainProcedureController/deleteProcedureById(id=${procedureList.id},grabDomainBasicId=${procedureList.grabDomainBasicId})}">删除</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 修改模态框（Modal） -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">更新模块信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/GrabDomainProcedureController/putProcedureById" method="post" id="updateForm">
+                                <div class="form-group custom" id="idmodel">
+                                    <label for="id">序号</label>
+                                    <input type="text" id="id" name="id" class="form-control"
+                                            readonly="readonly"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="grabDomainBasicId">抓取域基本信息id</label>
+                                    <input type="text" id="grabDomainBasicId" name="grabDomainBasicId" class="form-control"
+                                           th:value="${grabDomainBasicId}" readonly="readonly"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="grabDomainProcedureItem">抓取域步骤</label>
+                                    <input type="text" id="grabDomainProcedureItem" name="grabDomainProcedureItem"
+                                           class="form-control"
+                                           placeholder="" autocomplete="off"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="grabDomainProcedureName">抓取域方法名称</label>
+                                    <input type="text" id="grabDomainProcedureName" name="grabDomainProcedureName"
+                                           class="form-control"
+                                           placeholder="" autocomplete="off"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="grabDomainProcedureDescribe">抓取域方法描述</label>
+                                    <input type="text" id="grabDomainProcedureDescribe" name="grabDomainProcedureDescribe"
+                                           class="form-control"
+                                           placeholder="" autocomplete="off"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="grabDomainProcedureInParam">抓取域方法入参</label>
+                                    <input type="text" id="grabDomainProcedureInParam" name="grabDomainProcedureInParam"
+                                           class="form-control"
+                                           placeholder="" autocomplete="off"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="grabDomainProcedureOutParamType">抓取域方法出参类型</label>
+                                    <input type="text" id="grabDomainProcedureOutParamType"
+                                           name="grabDomainProcedureOutParamType"
+                                           class="form-control"
+                                           placeholder="" autocomplete="off"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="grabDomainProcedureOutParamName">抓取域方法出参名</label>
+                                    <input type="text" id="grabDomainProcedureOutParamName"
+                                           name="grabDomainProcedureOutParamName"
+                                           class="form-control"
+                                           placeholder="" autocomplete="off"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="grabDomainProcedurePackage">抓取域方法所在包名</label>
+                                    <input type="text" id="grabDomainProcedurePackage" name="grabDomainProcedurePackage"
+                                           class="form-control"
+                                           placeholder="" autocomplete="off"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="grabDomainProcedureClazz">抓取域方法所在类名</label>
+                                    <input type="text" id="grabDomainProcedureClazz" name="grabDomainProcedureClazz"
+                                           class="form-control"
+                                           placeholder="" autocomplete="off"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="remark">备注</label>
+                                    <textarea class="form-control" id="remark" name="remark" rows="4"
+                                              autocomplete="off"></textarea>
+                                    <span class="prompt-text">新增模块功能概述</span></div>
+                                <div class="form-group custom">
+                                    <label for="remark">备用1</label>
+                                    <input type="text" id="backupTxt1" name="backupTxt1" class="form-control"
+                                           placeholder="" autocomplete="off"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="remark">备用2</label>
+                                    <input type="text" id="backupTxt2" name="backupTxt2" class="form-control"
+                                           placeholder="" autocomplete="off"/>
+                                    <span class="prompt-text"></span></div>
+                                <div class="form-group custom">
+                                    <label for="remark">备用3</label>
+                                    <input type="text" id="backupTxt3" name="backupTxt3" class="form-control"
+                                           placeholder="" autocomplete="off"/>
+                                    <span class="prompt-text"></span></div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" onclick="$('#updateForm').submit();">
+                                提交更改
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+
         </div>
     </div>
 </section>
