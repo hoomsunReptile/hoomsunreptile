@@ -128,4 +128,40 @@ public interface GrabDomainMethodInfoDao {
     })
     @Select("select * from grab_domain_method_info where id=#{id}")
     public GrabDomainMethodInfo getMehodByMehodId( String id);
+    
+    
+    /**
+     * 查询方法表中METHOD_EXIST_FLAG 字段为0的所有方法
+     * @return
+     */
+    
+    @Results({
+        @Result(property = "id", column = "id"),
+        @Result(property = "grabDomainBasicId", column = "grab_domain_basic_id"),
+        @Result(property = "grabDomainProcedureId", column = "grab_domain_procedure_id"),
+        @Result(property = "methodCountTotal", column = "method_count_total"),
+        @Result(property = "methodItem", column = "method_item"),
+        @Result(property = "methodItemDescribe", column = "method_item_describe"),
+        @Result(property = "methodName", column = "method_name"),
+        @Result(property = "methodDescribe", column = "method_describe"),
+        @Result(property = "methodInParam", column = "method_in_param"),
+        @Result(property = "methodOutParamName", column = "method_out_param_name"),
+        @Result(property = "methodOutParamType", column = "method_out_param_type"),
+        @Result(property = "methodBody", column = "method_body"),
+        @Result(property = "methodPackage", column = "method_package"),
+        @Result(property = "methodClazz", column = "method_clazz"),
+        @Result(property = "methodExistFlag", column = "method_exist_flag"),
+        @Result(property = "status", column = "status"),
+        @Result(property = "remark", column = "remark"),
+        @Result(property = "methodImportPackage", column = "method_import_package"),
+        @Result(property = "backupTxt1", column = "backup_txt1"),
+        @Result(property = "backupTxt2", column = "backup_txt2"),
+        @Result(property = "backupTxt3", column = "backup_txt3")
+    })
+    @Select("SELECT ID,GRAB_DOMAIN_BASIC_ID, GRAB_DOMAIN_PROCEDURE_ID,METHOD_COUNT_TOTAL,METHOD_ITEM,METHOD_ITEM_DESCRIBE,METHOD_NAME,"
+            + "METHOD_DESCRIBE,METHOD_IN_PARAM,METHOD_OUT_PARAM_NAME,METHOD_OUT_PARAM_TYPE,METHOD_BODY,METHOD_PACKAGE,METHOD_CLAZZ,"
+            + "METHOD_EXIST_FLAG,STATUS,REMARK,METHOD_IMPORT_PACKAGE,BACKUP_TXT1,BACKUP_TXT2,BACKUP_TXT3 "
+            + "FROM GRAB_DOMAIN_METHOD_INFO "
+            + "WHERE METHOD_EXIST_FLAG = 0")
+    public  List<GrabDomainMethodInfo>  getMethodAll();
 }

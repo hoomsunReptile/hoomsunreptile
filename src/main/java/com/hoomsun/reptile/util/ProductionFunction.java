@@ -25,8 +25,13 @@ import javassist.CtMethod;
  */
 public class ProductionFunction {
 	private static Logger logger = Logger.getLogger(ProductionFunction.class);
-
-	public static boolean Addmehod(GrabDomainMethodInfo grabDomainMethodInfo) {
+	
+	/**
+	 * 根据方法表中配置的参数生成对应的class文件
+	 * @param grabDomainMethodInfo
+	 * @return
+	 */
+	public static boolean addMethod(GrabDomainMethodInfo grabDomainMethodInfo) {
 		try {
 
 			ClassPool pool = ClassPool.getDefault();
@@ -36,14 +41,16 @@ public class ProductionFunction {
 			CtClass ctClass = pool.makeClass(className);
 			/* 引入包名 多个 */
 			String packageName = grabDomainMethodInfo.getMethodImportPackage();
-			/* 解析 */
-			String[] arrayPackage = packageName.split(",");
-
-			/* 批量引入 */
 			pool.importPackage("java.util.Map");
-			for (int i = 0; i < arrayPackage.length; i++) {
-				pool.importPackage(arrayPackage[i]);
+			if(packageName != null && !packageName.isEmpty()){
+				/* 解析 */
+				String[] arrayPackage = packageName.split(",");
+				/* 批量引入 */
+				for (int i = 0; i < arrayPackage.length; i++) {
+					pool.importPackage(arrayPackage[i]);
+				}
 			}
+
 			StringBuffer buffer = new StringBuffer();
 
 			/* 判断方法修饰符 */
@@ -107,9 +114,10 @@ public class ProductionFunction {
 			fos.write(byteArr);
 			fos.close();
 		} catch (Exception e) {
-			logger.error("-------------类及方法加载失败，类名："+grabDomainMethodInfo.getMethodClazz()+"；方法名："+grabDomainMethodInfo.getMethodName(), e);
+			logger.error("-------------class文件生成失败，类名："+grabDomainMethodInfo.getMethodClazz()+"；方法名："+grabDomainMethodInfo.getMethodName(), e);
 			return false;
 		}
+		logger.error("-------------class文件生成成功，类名："+grabDomainMethodInfo.getMethodClazz()+"；方法名："+grabDomainMethodInfo.getMethodName());
 		return true;
 
 	}
