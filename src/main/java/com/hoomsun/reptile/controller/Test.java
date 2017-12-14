@@ -17,9 +17,9 @@ public class Test {
 	
 	@Autowired
     private ReptileControl reptileControl;
+
 	
-	
-	  @RequestMapping(value = "/test")
+	@RequestMapping(value = "/test")
 	public Map<String,Object> test(HttpServletRequest request,String type,int step){
 		Map<String,Object> params = new HashMap<String, Object>();
 		params.put("userName", request.getAttribute("userName"));

@@ -37,7 +37,11 @@ public interface GrabDomainBasicInfoDao {
             @Result(property = "backupTxt3", column = "backup_txt3")
     })
 
-    @Select("SELECT * FROM grab_domain_basic_info WHERE grab_domain_en_describe = #{grabDomainEnDescribe} order by id desc limit 1")
+    @Select("SELECT ID, GRAB_DOMAIN_EN_DESCRIBE,GRAB_DOMAIN_CN_DESCRIBE,GRAB_DOMAIN_PROCEDURE_TOTAL,GRAB_DOMAIN_LOGIN_ADDRESS,"
+            + "LOGIN_IN_PARAM,CONTROL_FLAG,KEYBOARD_FLAG,STATUS,REMARK,BACKUP_TXT1,BACKUP_TXT2,BACKUP_TXT3 "
+            + "FROM GRAB_DOMAIN_BASIC_INFO "
+            + "WHERE GRAB_DOMAIN_EN_DESCRIBE = #{grabDomainEnDescribe} "
+            + "ORDER BY ID DESC LIMIT 1")
     GrabDomainBasicInfo get(String grabDomainEnDescribe);
 
     /**

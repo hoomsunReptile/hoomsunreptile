@@ -19,7 +19,7 @@ public class GrabDomainMethodService {
     private GrabDomainMethodInfoDao methodInfoDao;
 
     public void postNewMethod(GrabDomainMethodInfo methodDao){
-//        boolean addmehod = ProductionFunction.Addmehod(methodDao);
+//        boolean addmehod = ProductionFunction.addmehod(methodDao);
 //        if(addmehod){
             methodInfoDao.postNewMethod(methodDao);
 //        }
